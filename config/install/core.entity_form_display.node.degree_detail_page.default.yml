@@ -1,0 +1,258 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.degree_detail_page.field_degree_detail_acadplancode
+    - field.field.node.degree_detail_page.field_degree_detail_breadcrumbs
+    - field.field.node.degree_detail_page.field_degree_detail_email_link
+    - field.field.node.degree_detail_page.field_degree_detail_first_math
+    - field.field.node.degree_detail_page.field_degree_detail_global_opp
+    - field.field.node.degree_detail_page.field_degree_detail_intro_image
+    - field.field.node.degree_detail_page.field_degree_detail_intro_video
+    - field.field.node.degree_detail_page.field_degree_detail_locations
+    - field.field.node.degree_detail_page.field_degree_detail_math_intense
+    - field.field.node.degree_detail_page.field_degree_detail_nxtsteps
+    - field.field.node.degree_detail_page.field_degree_detail_offered_by
+    - field.field.node.degree_detail_page.field_degree_detail_online_img
+    - field.field.node.degree_detail_page.field_degree_detail_outlook_img
+    - field.field.node.degree_detail_page.field_degree_detail_pgm_dept_url
+    - field.field.node.degree_detail_page.field_degree_detail_rfi
+    - field.field.node.degree_detail_page.field_degree_detail_time_commit
+    - node.type.degree_detail_page
+  module:
+    - field_group
+    - link
+    - media_library
+    - paragraphs
+    - path
+third_party_settings:
+  field_group:
+    group_degree_detail_intro_contnt:
+      children:
+        - field_degree_detail_breadcrumbs
+        - field_degree_detail_intro_image
+        - field_degree_detail_intro_video
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Intro content'
+    group_degree_detail_glance:
+      children:
+        - field_degree_detail_offered_by
+        - field_degree_detail_locations
+        - field_degree_detail_first_math
+        - field_degree_detail_math_intense
+        - field_degree_detail_time_commit
+      parent_name: ''
+      weight: 10
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'At a glance'
+    group_degree_detail_pgm_contact:
+      children:
+        - field_degree_detail_pgm_dept_url
+        - field_degree_detail_email_link
+      parent_name: ''
+      weight: 14
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Program contact info'
+id: node.degree_detail_page.default
+targetEntityType: node
+bundle: degree_detail_page
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_degree_detail_acadplancode:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_detail_breadcrumbs:
+    weight: 8
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_degree_detail_email_link:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_detail_first_math:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_detail_global_opp:
+    type: media_library_widget
+    weight: 12
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_intro_image:
+    type: media_library_widget
+    weight: 9
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_intro_video:
+    type: media_library_widget
+    weight: 10
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_locations:
+    weight: 10
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_degree_detail_math_intense:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_detail_nxtsteps:
+    type: entity_reference_paragraphs
+    weight: 15
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_offered_by:
+    weight: 9
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_degree_detail_online_img:
+    type: media_library_widget
+    weight: 13
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_outlook_img:
+    type: media_library_widget
+    weight: 11
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_pgm_dept_url:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_detail_rfi:
+    weight: 8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_degree_detail_time_commit:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden: {  }

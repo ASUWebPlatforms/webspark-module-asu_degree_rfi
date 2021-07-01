@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Contains asu_degree_rfi.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function asu_degree_rfi_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+      // Main module help for the asu_degree_rfi module.
+    case 'help.page.asu_degree_rfi':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('ASU Degree and RFI component launcher') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function asu_degree_rfi_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ("node_degree_listing_page_form" === $form_id) {
+
+    // Use form states API to conditionally show/hide props based on intro type.
+    $form['field_degree_list_photo_grid']['#states'] = [
+      'visible' => [
+        ':input[name="field_degree_list_intro_type"]' => ['value' => 'text-photo-grid']
+      ]
+    ];
+    $form['field_degree_listing_intro_image']['#states'] = [
+      'visible' => [
+        [
+          ':input[name="field_degree_list_intro_type"]' => ['value' => 'text-media'],
+        ],
+        [
+          ':input[name="field_degree_list_intro_type"]' => ['value' => 'text-image-overlay']
+        ]
+      ]
+    ];
+    $form['field_degree_listing_video']['#states'] = [
+      'visible' => [
+        ':input[name="field_degree_list_intro_type"]' => ['value' => 'text-media']
+      ]
+    ];
+    $form['field_degree_list_header']['#states'] = [
+      'visible' => [
+        ':input[name="field_degree_list_intro_type"]' => ['value' => 'text-image-overlay']
+      ]
+    ];
+
+    // Add a custom submit handler to save the array of types back to the config file.
+    // $form['actions']['submit']['#submit'][] = 'mymodule_upload_enabled_types_submit';
+  }
+}

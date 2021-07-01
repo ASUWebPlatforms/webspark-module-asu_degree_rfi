@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.degree_detail_page.field_degree_detail_acadplancode
+    - field.field.node.degree_detail_page.field_degree_detail_breadcrumbs
+    - field.field.node.degree_detail_page.field_degree_detail_email_link
+    - field.field.node.degree_detail_page.field_degree_detail_first_math
+    - field.field.node.degree_detail_page.field_degree_detail_global_opp
+    - field.field.node.degree_detail_page.field_degree_detail_intro_image
+    - field.field.node.degree_detail_page.field_degree_detail_intro_video
+    - field.field.node.degree_detail_page.field_degree_detail_locations
+    - field.field.node.degree_detail_page.field_degree_detail_math_intense
+    - field.field.node.degree_detail_page.field_degree_detail_nxtsteps
+    - field.field.node.degree_detail_page.field_degree_detail_offered_by
+    - field.field.node.degree_detail_page.field_degree_detail_online_img
+    - field.field.node.degree_detail_page.field_degree_detail_outlook_img
+    - field.field.node.degree_detail_page.field_degree_detail_pgm_dept_url
+    - field.field.node.degree_detail_page.field_degree_detail_rfi
+    - field.field.node.degree_detail_page.field_degree_detail_time_commit
+    - node.type.degree_detail_page
+  module:
+    - user
+id: node.degree_detail_page.teaser
+targetEntityType: node
+bundle: degree_detail_page
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_degree_detail_acadplancode: true
+  field_degree_detail_breadcrumbs: true
+  field_degree_detail_email_link: true
+  field_degree_detail_first_math: true
+  field_degree_detail_global_opp: true
+  field_degree_detail_intro_image: true
+  field_degree_detail_intro_video: true
+  field_degree_detail_locations: true
+  field_degree_detail_math_intense: true
+  field_degree_detail_nxtsteps: true
+  field_degree_detail_offered_by: true
+  field_degree_detail_online_img: true
+  field_degree_detail_outlook_img: true
+  field_degree_detail_pgm_dept_url: true
+  field_degree_detail_rfi: true
+  field_degree_detail_time_commit: true

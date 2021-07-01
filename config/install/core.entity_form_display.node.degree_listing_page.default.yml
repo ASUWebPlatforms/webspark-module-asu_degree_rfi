@@ -1,0 +1,251 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.degree_listing_page.field_degree_list_apply_now_url
+    - field.field.node.degree_listing_page.field_degree_list_certs_minors
+    - field.field.node.degree_listing_page.field_degree_list_college_code
+    - field.field.node.degree_listing_page.field_degree_list_dept_code
+    - field.field.node.degree_listing_page.field_degree_list_header
+    - field.field.node.degree_listing_page.field_degree_list_hero_highlight
+    - field.field.node.degree_listing_page.field_degree_list_hero_image
+    - field.field.node.degree_listing_page.field_degree_list_hero_size
+    - field.field.node.degree_listing_page.field_degree_list_hero_title
+    - field.field.node.degree_listing_page.field_degree_list_intro_content
+    - field.field.node.degree_listing_page.field_degree_list_intro_title
+    - field.field.node.degree_listing_page.field_degree_list_intro_type
+    - field.field.node.degree_listing_page.field_degree_list_photo_grid
+    - field.field.node.degree_listing_page.field_degree_list_program
+    - field.field.node.degree_listing_page.field_degree_list_show_filters
+    - field.field.node.degree_listing_page.field_degree_list_show_search
+    - field.field.node.degree_listing_page.field_degree_listing_intro_image
+    - field.field.node.degree_listing_page.field_degree_listing_video
+    - node.type.degree_listing_page
+  module:
+    - field_group
+    - media_library
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_degree_list_hero:
+      children:
+        - field_degree_list_hero_image
+        - field_degree_list_hero_size
+        - field_degree_list_hero_title
+        - field_degree_list_hero_highlight
+      parent_name: ''
+      weight: 13
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Hero
+    group_degree_list_intro_content:
+      children:
+        - field_degree_list_intro_type
+        - field_degree_list_intro_title
+        - field_degree_list_header
+        - field_degree_list_intro_content
+        - field_degree_list_photo_grid
+        - field_degree_listing_intro_image
+        - field_degree_listing_video
+      parent_name: ''
+      weight: 14
+      format_type: fieldset
+      region: content
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Intro content'
+id: node.degree_listing_page.default
+targetEntityType: node
+bundle: degree_listing_page
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_degree_list_apply_now_url:
+    weight: 15
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_certs_minors:
+    weight: 10
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_degree_list_college_code:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_dept_code:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_header:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_hero_highlight:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_degree_list_hero_image:
+    type: media_library_widget
+    weight: 12
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_list_hero_size:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_degree_list_hero_title:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_intro_content:
+    weight: 21
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_degree_list_intro_title:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_degree_list_intro_type:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_degree_list_photo_grid:
+    type: media_library_widget
+    weight: 22
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_list_program:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_degree_list_show_filters:
+    weight: 11
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_degree_list_show_search:
+    weight: 12
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_degree_listing_intro_image:
+    type: media_library_widget
+    weight: 23
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  field_degree_listing_video:
+    type: media_library_widget
+    weight: 24
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+    region: content
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden: {  }

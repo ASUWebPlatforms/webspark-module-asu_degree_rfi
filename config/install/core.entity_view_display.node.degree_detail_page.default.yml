@@ -1,0 +1,184 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.degree_detail_page.field_degree_detail_acadplancode
+    - field.field.node.degree_detail_page.field_degree_detail_breadcrumbs
+    - field.field.node.degree_detail_page.field_degree_detail_email_link
+    - field.field.node.degree_detail_page.field_degree_detail_first_math
+    - field.field.node.degree_detail_page.field_degree_detail_global_opp
+    - field.field.node.degree_detail_page.field_degree_detail_intro_image
+    - field.field.node.degree_detail_page.field_degree_detail_intro_video
+    - field.field.node.degree_detail_page.field_degree_detail_locations
+    - field.field.node.degree_detail_page.field_degree_detail_math_intense
+    - field.field.node.degree_detail_page.field_degree_detail_nxtsteps
+    - field.field.node.degree_detail_page.field_degree_detail_offered_by
+    - field.field.node.degree_detail_page.field_degree_detail_online_img
+    - field.field.node.degree_detail_page.field_degree_detail_outlook_img
+    - field.field.node.degree_detail_page.field_degree_detail_pgm_dept_url
+    - field.field.node.degree_detail_page.field_degree_detail_rfi
+    - field.field.node.degree_detail_page.field_degree_detail_time_commit
+    - node.type.degree_detail_page
+  module:
+    - entity_reference_revisions
+    - link
+    - user
+id: node.degree_detail_page.default
+targetEntityType: node
+bundle: degree_detail_page
+mode: default
+content:
+  field_degree_detail_acadplancode:
+    weight: 117
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_degree_detail_breadcrumbs:
+    weight: 101
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_degree_detail_email_link:
+    weight: 112
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_degree_detail_first_math:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_degree_detail_global_opp:
+    type: entity_reference_entity_view
+    weight: 109
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_intro_image:
+    type: entity_reference_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_intro_video:
+    type: entity_reference_entity_view
+    weight: 116
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_locations:
+    weight: 104
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_degree_detail_math_intense:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_degree_detail_nxtsteps:
+    type: entity_reference_revisions_entity_view
+    weight: 115
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_offered_by:
+    weight: 103
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_degree_detail_online_img:
+    type: entity_reference_entity_view
+    weight: 110
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_outlook_img:
+    type: entity_reference_entity_view
+    weight: 108
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_degree_detail_pgm_dept_url:
+    weight: 111
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_degree_detail_rfi:
+    weight: 114
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_degree_detail_time_commit:
+    weight: 107
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

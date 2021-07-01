@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: degree_details_next_steps
+label: 'Degree details next steps card'
+icon_uuid: null
+icon_default: null
+description: 'Next steps cards for Degree listing pages'
+behavior_plugins: {  }

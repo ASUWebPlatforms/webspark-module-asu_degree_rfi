@@ -1,0 +1,19 @@
+uuid: c8d405c7-8aa3-4f6b-acf0-b0e5d8ff1bb1
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_degree_nxtstep_card_contnt
+field_name: field_degree_nxtstep_card_contnt
+entity_type: paragraph
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

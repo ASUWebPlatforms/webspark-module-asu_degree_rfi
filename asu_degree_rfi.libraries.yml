@@ -1,0 +1,7 @@
+components-library:
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+  js:
+    js/asu_degree_rfi.js: {}

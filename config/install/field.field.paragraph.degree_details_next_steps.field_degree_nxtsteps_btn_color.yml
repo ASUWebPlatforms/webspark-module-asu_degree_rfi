@@ -1,0 +1,21 @@
+uuid: 2a6355a5-75dd-4a06-a431-1db462ebf17c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_degree_nxtsteps_btn_color
+    - paragraphs.paragraphs_type.degree_details_next_steps
+  module:
+    - options
+id: paragraph.degree_details_next_steps.field_degree_nxtsteps_btn_color
+field_name: field_degree_nxtsteps_btn_color
+entity_type: paragraph
+bundle: degree_details_next_steps
+label: 'Card button link color'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
