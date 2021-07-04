@@ -4,15 +4,15 @@ namespace Drupal\asu_degree_rfi\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
-// use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Cache\Cache;
 
 /**
- * ASU Degree RFI module RFI Component block.
+ * ASU Degree RFI module RFI component block.
  *
  * @Block(
  *   id = "asu_degree_rfi_rfi_block",
- *   admin_label = @Translation("ASU Degree RFI form component"),
+ *   admin_label = @Translation("RFI form component"),
  * )
  */
 class AsuDegreeRfiRfiBlock extends BlockBase {
@@ -20,39 +20,80 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function getCacheTags() {
+    // Define cache tag.
+    // Gets invalidated when module and block settings are updated.
+    return Cache::mergeTags(parent::getCacheTags(), array('rfi_block_cache'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
+
+    // RFI component blocks are deployed in 1 of 2 ways:
+    // 1. RFI form component blocks are automatically created and configured
+    //    with on-demand Degree detail page creation, with program of interest
+    //    automatically set. 1:1 block relationship with Degree detail pages.
+    // 2. RFI form component blocks can be deployed as regular blocks via
+    //    layout builder.
 
     // Pass data from php:
     // https://codimth.com/blog/web/drupal/passing-data-php-javascript-drupal-8
 
+    // Pull in global configs for module.
+    $global_config = \Drupal::config('asu_degree_rfi.settings');
+
     // Pull in block-level configs (see blockForm()). Drupal manages deltas.
     $config = $this->getConfiguration();
 
-    // Rally props to pass to JS as drupalSettings.
+
+    // Gather props to pass to JS as drupalSettings.
     $props = [];
 
-    // TODO rally settings here
+    // TODO gather props settings here
 
     $block_output = [];
-    // Markup containers where components will initialize.
-    $block_output['#markup'] =
-      $this->t('
+
+    // If Source ID is not configured, display a message to that effect
+    // for admin users and do not launch the RFI form.
+    // If not set, and user has administer site content perm...
+    if (!$global_config->get('asu_degree_rfi.rfi_source_id')) {
+      $link = Link::createFromRoute('You must configure an RFI Source ID to enable the RFI form.', 'asu_degree_rfi.asu_degree_rfi_settings')
+        ->toString();
+      $warn_message = [
+        '#theme' => 'status_messages',
+        '#message_list' => ['warning' => [$this->t("@link", ['@link' => $link])]],
+        '#status_headings' => [
+          'status' => t('Status message'),
+          'error' => t('Error message'),
+          'warning' => t('Warning message'),
+        ],
+      ];
+      $block_output = $warn_message;
+    } else { // Add the add the RFI component container.
+
+      // Markup containers where components will initialize.
+      $block_output['#markup'] =
+        $this->t('
         <!-- AsuRfi component will be initialized in this container. -->
         <div id="rfi-container">TODO RFI RENDERS HERE TODO</div>
         ');
-    // $tag_menu = $config['asu_brand_header_block_menu_enabled'] ? $config['asu_brand_header_block_menu_name'] : 'main';
-    // $block_output['#cache'] = [
-    //   'contexts' => $this->getCacheContexts(),
-    //   // Break cache when block or menus change.
-    //   'tags' => Cache::mergeTags($this->getCacheTags(), Cache::buildTags('config:system.menu', [$tag_menu], '.')),
-    // ];
-    // Attach components and helper js registered in asu_brand.libraries.yml
-    //$block_output['#attached']['library'][] = 'asu_brand/components-library';
-    // Pass block configs to javascript. Gets taken up in js/asu_brand.header.js
-    //$block_output['#attached']['drupalSettings']['asu_brand']['props'] = $props;
-    // Get and pass cookie consent status, too.
-    //$global_config = \Drupal::config('asu_brand.settings');
-    //$block_output['#attached']['drupalSettings']['asu_brand']['cookie_consent'] = $global_config->get('asu_brand.asu_brand_cookie_consent_enabled');
+      // $tag_menu = $config['asu_brand_header_block_menu_enabled'] ? $config['asu_brand_header_block_menu_name'] : 'main';
+      // $block_output['#cache'] = [
+      //   'contexts' => $this->getCacheContexts(),
+      //   // Break cache when block or menus change.
+      //   'tags' => Cache::mergeTags($this->getCacheTags(), Cache::buildTags('config:system.menu', [$tag_menu], '.')),
+      // ];
+      // Attach components and helper js registered in asu_brand.libraries.yml
+      //$block_output['#attached']['library'][] = 'asu_brand/components-library';
+      // Pass block configs to javascript. Gets taken up in js/asu_brand.header.js
+      //$block_output['#attached']['drupalSettings']['asu_brand']['props'] = $props;
+      // Get and pass cookie consent status, too.
+      //$global_config = \Drupal::config('asu_brand.settings');
+      //$block_output['#attached']['drupalSettings']['asu_brand']['cookie_consent'] = $global_config->get('asu_brand.asu_brand_cookie_consent_enabled');
+
+    }
 
     return $block_output;
   }
@@ -62,35 +103,12 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
    */
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
+    // Note: more configs required for component props (dataSource* fields) are
+    // sourced from module admin settings.
 
-    // RFI component blocks are deployed in 1 of 2 ways:
-    // 1. RFI form component blocks are automatically created and configured
-    //    with on-demand Degree detail page creation.
-    // 2. RFI form component blocks can be deployed as regular blocks via
-    //    layout builder.
 
-    /*
-    Instances - One per degree? And one per individual deploy instance.
-    Sourcing values... At on-demand creation set values to form. Or allow full config at indvidual deploy.
+    // TODO Call DS REST and DPL here and do processing to build field options.
 
-    RFI block config form
-    College (college)
-    Department (department)
-    Campus (campus) [GROUND | ONLNE | NOPREF]
-    Student Type (studentType) [undergrad | graduate]
-    Area of Interest (areaOfInterest) - sourcing for this?
-    Program of Interest (programOfInterest)
-    Is this a Certificate or Minor? (isCertMinor) [true | false]
-    Country (country) [iso 2 char country code] - sourcing?
-    State or Province (stateProvince)
-    Success page message (successMsg) [textarea with wysiwyg]
-    Test mode (test) [true | false]
-    TODO ... more configs (dataSource* fields) sourced from global admin settings
-
-    TODO do we need AJAX API for service calls? Maybe not. We could just call
-    here and do processing and build options.
-
-    */
 
     // Config for this instance.
     $config = $this->getConfiguration();
@@ -134,7 +152,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_student_type']) ?
         $config['asu_degree_rfi_student_type'] : '',
     ];
-    // TODO ajaxify .... or turn into text field
+    // TODO svc call for options .... or turn into text field
     $form['asu_degree_rfi_area_of_interest'] = [
       '#type' => 'select',
       '#title' => $this->t('Area of interest'),
@@ -148,7 +166,8 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_area_of_interest']) ?
         $config['asu_degree_rfi_area_of_interest'] : '',
     ];
-    // TODO ajaxify .... or turn into text field
+    // TODO svc call for options .... or turn into text field
+    // AKA plan code or academic plan code.
     $form['asu_degree_rfi_program_of_interest'] = [
       '#type' => 'select',
       '#title' => $this->t('Program of interest'),
@@ -162,6 +181,14 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_program_of_interest']) ?
         $config['asu_degree_rfi_program_of_interest'] : '',
     ];
+    $form['asu_degree_rfi_p_of_i_optional'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Program of interest is optional'),
+      '#description' => $this->t('Set program of interest as optional. Not
+        usually recommended, but can be useful for non-academic units.'),
+      '#default_value' => isset($config['asu_degree_rfi_is_cert_minor']) ?
+        $config['asu_degree_rfi_p_of_i_optional'] : 0,
+    ];
     $form['asu_degree_rfi_is_cert_minor'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Is a certificate or minor'),
@@ -171,7 +198,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_is_cert_minor']) ?
         $config['asu_degree_rfi_is_cert_minor'] : 0,
     ];
-    // TODO ajaxify .... or turn into text field with note about ISO 2 char country codes
+    // TODO svc call for options .... or turn into text field with note about ISO 2 char country codes
     $form['asu_degree_rfi_country'] = [
       '#type' => 'select',
       '#title' => $this->t('Country'),
@@ -185,7 +212,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_country']) ?
         $config['asu_degree_rfi_country'] : '',
     ];
-    // TODO ajaxify .... or turn into text field with note about ISO 2 char country codes
+    // TODO svc call for options .... or turn into text field with note about ISO 2 char country codes
     $form['asu_degree_rfi_state_province'] = [
       '#type' => 'select',
       '#title' => $this->t('State or province'),
@@ -228,6 +255,9 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
   public function blockSubmit($form, FormStateInterface $form_state) {
     parent::blockSubmit($form, $form_state);
 
+    // Break block cache when we save.
+    Cache::invalidateTags(['rfi_block_cache']);
+
     $values = $form_state->getValues();
 
     $this->configuration['asu_degree_rfi_college'] =
@@ -242,6 +272,8 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       $values['asu_degree_rfi_area_of_interest'];
     $this->configuration['asu_degree_rfi_program_of_interest'] =
       $values['asu_degree_rfi_program_of_interest'];
+    $this->configuration['asu_degree_rfi_p_of_i_optional'] =
+      $values['asu_degree_rfi_p_of_i_optional'];
     $this->configuration['asu_degree_rfi_is_cert_minor'] =
       $values['asu_degree_rfi_is_cert_minor'];
     $this->configuration['asu_degree_rfi_country'] =

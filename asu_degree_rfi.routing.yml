@@ -1,0 +1,7 @@
+asu_degree_rfi.asu_degree_rfi_settings:
+  path: '/admin/config/asu_degree_rfi/settings'
+  defaults:
+    _form: '\Drupal\asu_degree_rfi\Form\AsuDegreeRfiSettingsForm'
+    _title: 'ASU Degree RFI settings'
+  requirements:
+    _permission: 'administer site configuration'
