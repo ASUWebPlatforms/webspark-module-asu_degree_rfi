@@ -3,7 +3,9 @@
 namespace Drupal\asu_degree_rfi\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Cache\Cache;
 
@@ -15,7 +17,7 @@ use Drupal\Core\Cache\Cache;
  *   admin_label = @Translation("RFI form component"),
  * )
  */
-class AsuDegreeRfiRfiBlock extends BlockBase {
+class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * {@inheritdoc}
@@ -24,6 +26,51 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
     // Define cache tag.
     // Gets invalidated when module and block settings are updated.
     return Cache::mergeTags(parent::getCacheTags(), array('rfi_block_cache'));
+  }
+
+  /**
+   * We implement the Degree Search REST API and Data Potluck services as
+   * Drupal services. See asu_degree_rfi.services.yml for entry points to
+   * implementation + __construct() and create() below for how we consume it.
+   * Based on https://www.hook42.com/blog/consuming-json-apis-drupal-8
+   */
+
+  /**
+   * @var \Drupal\asu_degree_rfi\AsuDegreeRfiDegreeSearchClient
+   */
+  protected $degreeSearchClient;
+
+  /**
+   * @var \Drupal\asu_degree_rfi\AsuDegreeRfiDataPotluckClient
+   */
+  protected $dataPotluckClient;
+
+  /**
+   * AsuDegreeRfiRfiBlock constructor.
+   *
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param $degree_search_client \Drupal\asu_degree_rfi\AsuDegreRfiDegreeSearchClient
+   * @param $data_potluck_client \Drupal\asu_degree_rfi\AsuDegreeRfiDataPotluckClient
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $asu_degree_rfi_degree_search_client = null, $asu_degree_rfi_data_potluck_client = null) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->degreeSearchClient = $asu_degree_rfi_degree_search_client;
+    $this->dataPotluckClient = $asu_degree_rfi_data_potluck_client;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('asu_degree_rfi_degree_search_client'),
+      $container->get('asu_degree_rfi_data_potluck_client')
+    );
   }
 
   /**
@@ -106,24 +153,97 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
     // Note: more configs required for component props (dataSource* fields) are
     // sourced from module admin settings.
 
+    $cache_time_to_live = "+8 hours";
 
-    // TODO Call DS REST and DPL here and do processing to build field options.
+    // Get AoI options. Get from, or set cache.
+    $cid = 'asu_degree_rfi:aoi_options';
+    $aoi_options = [];
+    if ($cache = \Drupal::cache()->get($cid)) {
+      // Use the cached data.
+      $aoi_options = $cache->data;
+    } else {
+      // Call DS REST service to get all the Area of Interest permutations.
+      $aoi_ugrad = $this->degreeSearchClient->areasOfInterest('undergrad', 'false');
+      $aoi_grad = $this->degreeSearchClient->areasOfInterest('graduate', 'false');
+      $aoi_ucert = $this->degreeSearchClient->areasOfInterest('undergrad', 'true');
+      $aoi_gcert = $this->degreeSearchClient->areasOfInterest('graduate', 'true');
+      // Array merge will avoid creating dupes.
+      $aoi_options = array_merge($aoi_ugrad, $aoi_grad, $aoi_ucert, $aoi_gcert);
+      // Set the cache.
+      \Drupal::cache()
+        ->set($cid, $aoi_options, strtotime($cache_time_to_live));
+    }
 
+    // Get PoI options. Get from, or set cache.
+    $cid = 'asu_degree_rfi:poi_options';
+    $poi_options = [];
+    if ($cache = \Drupal::cache()->get($cid)) {
+      // Use the cached data.
+      $poi_options = $cache->data;
+    } else {
+      // Call DS REST service to get all the Program of Interest permutations.
+      $poi_ugrad = $this->degreeSearchClient->programsOfInterest('undergrad', 'false');
+      $poi_grad = $this->degreeSearchClient->programsOfInterest('graduate', 'false');
+      $poi_ucert = $this->degreeSearchClient->programsOfInterest('undergrad', 'true');
+      $poi_gcert = $this->degreeSearchClient->programsOfInterest('graduate', 'true');
+      // Merge with headings to break up a looong select list.
+      $poi_options = array_merge(
+        ["Undergrad" => $poi_ugrad],
+        ["Gradudate" => $poi_grad],
+        ["Undergrad certificates and minors" => $poi_ucert],
+        ["Graduate certificates and minors" => $poi_gcert]
+      );
+      // Set the cache.
+      \Drupal::cache()
+        ->set($cid, $poi_options, strtotime($cache_time_to_live));
+    }
+
+    // Get Department options. Get from, or set cache.
+    // TODO Would be better if we could get from dedicated service or DPL.
+    $cid = 'asu_degree_rfi:dept_options';
+    $dept_options = [];
+    if ($cache = \Drupal::cache()->get($cid)) {
+      // Use the cached data.
+      $dept_options = $cache->data;
+    } else {
+      // Call DS REST service to get all the Program of Interest permutations.
+      $dept_ugrad = $this->degreeSearchClient->departments('undergrad', 'false');
+      $dept_grad = $this->degreeSearchClient->departments('graduate', 'false');
+      $dept_ucert = $this->degreeSearchClient->departments('undergrad', 'true');
+      $dept_gcert = $this->degreeSearchClient->departments('graduate', 'true');
+      // Merge with headings to break up a looong select list.
+      $dept_options = array_merge($dept_ugrad, $dept_grad, $dept_ucert, $dept_gcert);
+      // Set the cache.
+      \Drupal::cache()
+        ->set($cid, $dept_options, strtotime($cache_time_to_live));
+    }
+
+    // Get college, country and state options from Data Potluck services.
+    // Only US and CA states/provinces. These are lightweight, so we don't
+    // bother caching.
+    $college_options = [];
+    $college_options = $this->dataPotluckClient->colleges();
+    $country_options = [];
+    $country_options = $this->dataPotluckClient->countries();
+    $state_province_options = [];
+    $state_province_options = $this->dataPotluckClient->statesProvinces(['US', 'CA']);
 
     // Config for this instance.
     $config = $this->getConfiguration();
 
     $form['asu_degree_rfi_college'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('College code'),
-      '#description' => $this->t('Enter a valid college code to filter degree listings. To identify college codes refer to the <a href="https://api.myasuplat-dpl.asu.edu/api/codeset/colleges" target="_blank">college data service</a> and find the acadOrgCode that matches your college. Note: you may want to install a JSON formatter browser extension or paste the page output into an online JSON formatter to render the data human-readable.'),
+      '#type' => 'select',
+      '#title' => $this->t('College'),
+      '#description' => $this->t('By selecting a college, degrees listed on the RFI form will be limited to those offered the the college.'),
+      '#options' => array_merge(['' => $this->t('None')], $college_options),
       '#default_value' => isset($config['asu_degree_rfi_college']) ?
         $config['asu_degree_rfi_college'] : null
     ];
     $form['asu_degree_rfi_department'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Department code'),
-      '#description' => $this->t('Enter a valid department code to filter degree listings. To identify department codes refer to the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=undergrad" target="_blank">undergraduate degree departments data service</a> or the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=graduate" target="_blank">graduate degree departments data service</a> to find a DepartmentCode that matches your department\'s name. Note: you may want to install a JSON formatter browser extension or paste the page output into an online JSON formatter to render the data human-readable.'),
+      //'#description' => $this->t('Enter a valid department code to filter degree listings. To identify department codes refer to the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=undergrad" target="_blank">undergraduate degree departments data service</a> or the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=graduate" target="_blank">graduate degree departments data service</a> to find a DepartmentCode that matches your department\'s name. Note: you may want to install a JSON formatter browser extension or paste the page output into an online JSON formatter to render the data human-readable.'),
+      '#options' => array_merge(['' => $this->t('None')], $dept_options),
       '#default_value' => isset($config['asu_degree_rfi_department']) ?
         $config['asu_degree_rfi_department'] : null
     ];
@@ -132,7 +252,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#title' => $this->t('Campus'),
       '#description' => $this->t('Preconfigure RFI for a campus choice.'),
       '#options' => [
-        '' => $this->t('none'),
+        '' => $this->t('None'),
         'GROUND' => $this->t('On campus'),
         'ONLNE' => $this->t('Online'),
         'NOPREF' => $this->t('Not sure'),
@@ -145,7 +265,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#title' => $this->t('Student type'),
       '#description' => $this->t('Preconfigure RFI with a student type.'),
       '#options' => [
-        '' => $this->t('none'),
+        '' => $this->t('None'),
         'undergrad' => $this->t('Undergraduate'),
         'graduate' => $this->t('Graduate'),
       ],
@@ -157,12 +277,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#type' => 'select',
       '#title' => $this->t('Area of interest'),
       '#description' => $this->t('Preconfigure RFI with an area of interest.'),
-      '#options' => [
-        '' => $this->t('none'),
-        '1' => $this->t('1'),
-        '2' => $this->t('2'),
-        '3' => $this->t('3'),
-      ],
+      '#options' => array_merge(['' => $this->t('None')], $aoi_options),
       '#default_value' => isset($config['asu_degree_rfi_area_of_interest']) ?
         $config['asu_degree_rfi_area_of_interest'] : '',
     ];
@@ -172,12 +287,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#type' => 'select',
       '#title' => $this->t('Program of interest'),
       '#description' => $this->t('Preconfigure RFI with a program of interest.'),
-      '#options' => [
-        '' => $this->t('none'),
-        '1' => $this->t('1'),
-        '2' => $this->t('2'),
-        '3' => $this->t('3'),
-      ],
+      '#options' => array_merge(['' => $this->t('None')], $poi_options),
       '#default_value' => isset($config['asu_degree_rfi_program_of_interest']) ?
         $config['asu_degree_rfi_program_of_interest'] : '',
     ];
@@ -198,33 +308,33 @@ class AsuDegreeRfiRfiBlock extends BlockBase {
       '#default_value' => isset($config['asu_degree_rfi_is_cert_minor']) ?
         $config['asu_degree_rfi_is_cert_minor'] : 0,
     ];
-    // TODO svc call for options .... or turn into text field with note about ISO 2 char country codes
+    // Options obtained via service call.
     $form['asu_degree_rfi_country'] = [
       '#type' => 'select',
       '#title' => $this->t('Country'),
       '#description' => $this->t('Preconfigure RFI for submissions from a specific country.'),
-      '#options' => [
-        '' => $this->t('none'),
-        '1' => $this->t('1'),
-        '2' => $this->t('2'),
-        '3' => $this->t('3'),
-      ],
+      '#options' => array_merge(['' => $this->t('None')], $country_options),
       '#default_value' => isset($config['asu_degree_rfi_country']) ?
         $config['asu_degree_rfi_country'] : '',
     ];
-    // TODO svc call for options .... or turn into text field with note about ISO 2 char country codes
+    // Options obtained via service call.
     $form['asu_degree_rfi_state_province'] = [
       '#type' => 'select',
       '#title' => $this->t('State or province'),
       '#description' => $this->t('Preconfigure RFI for submissions from a specific US state or Canadian province.'),
-      '#options' => [
-        '' => $this->t('none'),
-        '1' => $this->t('1'),
-        '2' => $this->t('2'),
-        '3' => $this->t('3'),
-      ],
+      '#options' => array_merge(['' => $this->t('None')], $state_province_options),
       '#default_value' => isset($config['asu_degree_rfi_state_province']) ?
         $config['asu_degree_rfi_state_province'] : '',
+      '#states' => [
+        'enabled' => [
+          [
+            ':input[name="settings[asu_degree_rfi_country]"]' => ['value' => 'US'],
+          ],
+          [
+            ':input[name="settings[asu_degree_rfi_country]"]' => ['value' => 'CA'],
+          ]
+        ]
+      ]
     ];
     $form['asu_brand_header_success_msg'] = [
       '#type' => 'text_format',
