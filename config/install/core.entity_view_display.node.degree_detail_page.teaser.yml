@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.degree_detail_page.field_degree_detail_acadplancode

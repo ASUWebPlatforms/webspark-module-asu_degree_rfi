@@ -1,7 +1,9 @@
-uuid: 1cc5aca2-fa39-4040-b4df-0fcd38331a79
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
     - field.field.paragraph.degree_details_next_steps.field_degree_nxtstep_card_contnt
     - field.field.paragraph.degree_details_next_steps.field_degree_nxtsteps_btn_color

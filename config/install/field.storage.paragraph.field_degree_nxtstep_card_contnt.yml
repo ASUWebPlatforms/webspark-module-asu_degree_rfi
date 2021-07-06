@@ -1,7 +1,9 @@
-uuid: c8d405c7-8aa3-4f6b-acf0-b0e5d8ff1bb1
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - paragraphs
 id: paragraph.field_degree_nxtstep_card_contnt

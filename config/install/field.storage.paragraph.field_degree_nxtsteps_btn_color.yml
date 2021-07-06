@@ -1,7 +1,9 @@
-uuid: 460f66bb-93ad-45dc-a24b-723b5d99a152
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - options
     - paragraphs

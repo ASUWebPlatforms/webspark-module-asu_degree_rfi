@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
     - field.storage.node.field_degree_detail_time_commit
     - node.type.degree_detail_page
