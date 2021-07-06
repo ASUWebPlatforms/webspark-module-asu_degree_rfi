@@ -6,6 +6,11 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+// Constants are implemented through interfaces in D9.
+// See https://www.drupal.org/forum/support/module-development-and-code-questions/2020-09-14/what-to-use-instead-of-a-global-const
+use Drupal\asu_degree_rfi\AsuDegreeRfiInterface;
 
 /**
  * Implements hook_help().
@@ -60,4 +65,66 @@ function asu_degree_rfi_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     // Add a custom submit handler to save the array of types back to the config file.
     // $form['actions']['submit']['#submit'][] = 'mymodule_upload_enabled_types_submit';
   }
+}
+
+/**
+ * Allowed values function for field_degree_list_college_code #options.
+ *
+ * Reference for implementing this
+ * https://drupal.stackexchange.com/a/242011/104979
+ *
+ * Does service call with dataPotluckClient service.
+ */
+function asu_degree_rfi_college_code_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+
+  $dataPotluckClient = \Drupal::getContainer()->get('asu_degree_rfi_data_potluck_client');
+
+  // Get colleges from Data Potluck service.
+  $college_options = [];
+
+  // Pull in service client for Data Potluck.
+  $college_options = $dataPotluckClient->colleges();
+
+  return $college_options;
+}
+
+/**
+ * Allowed values function for field_degree_list_dept_code #options.
+ *
+ * Reference for implementing this
+ * https://drupal.stackexchange.com/a/242011/104979
+ *
+ * Does service call with degreeSearchClient service.
+ */
+function asu_degree_rfi_dept_code_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+
+  $cache_time_to_live = AsuDegreeRfiInterface::ASU_DEGREE_RFI_CACHE_LIFE;
+
+  // Pull in service client for Degree Search.
+  $degreeSearchClient = \Drupal::getContainer()->get('asu_degree_rfi_degree_search_client');
+
+  // TODO Would be better if we could get from dedicated service or DPL.
+  // TODO Improve: some duplication of code between
+  // AsuDegreeRfiRfiBlock blockForm() method and the code below.
+
+  // Get Department options. Get from, or set cache.
+  $cid = 'asu_degree_rfi:dept_options';
+  $dept_options = [];
+  if ($cache = \Drupal::cache()->get($cid)) {
+    // Use the cached data.
+    $dept_options = $cache->data;
+  } else {
+    // Call DS REST service to get all the Program of Interest permutations.
+    $dept_ugrad = $degreeSearchClient->departments('undergrad', 'false');
+    $dept_grad = $degreeSearchClient->departments('graduate', 'false');
+    $dept_ucert = $degreeSearchClient->departments('undergrad', 'true');
+    $dept_gcert = $degreeSearchClient->departments('graduate', 'true');
+    // Merge with headings to break up a looong select list.
+    $dept_options = array_merge($dept_ugrad, $dept_grad, $dept_ucert, $dept_gcert);
+    // Set the cache.
+    \Drupal::cache()
+      ->set($cid, $dept_options, strtotime($cache_time_to_live));
+  }
+
+  return $dept_options;
 }

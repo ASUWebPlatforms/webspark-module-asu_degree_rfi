@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Cache\Cache;
+use Drupal\asu_degree_rfi\AsuDegreeRfiInterface;
 
 /**
  * ASU Degree RFI module RFI component block.
@@ -153,7 +154,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     // Note: more configs required for component props (dataSource* fields) are
     // sourced from module admin settings.
 
-    $cache_time_to_live = "+8 hours";
+    $cache_time_to_live = AsuDegreeRfiInterface::ASU_DEGREE_RFI_CACHE_LIFE;
 
     // Get AoI options. Get from, or set cache.
     $cid = 'asu_degree_rfi:aoi_options';
