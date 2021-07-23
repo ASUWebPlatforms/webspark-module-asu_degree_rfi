@@ -62,8 +62,7 @@ third_party_settings:
       blacklisted_blocks: {  }
       restricted_categories: {  }
       allowed_layouts: {  }
-_core:
-  default_config_hash: xewAWosAcebWkTT304R4nP6tnA5DqXUPNXT8smwo7Rs
+
 id: node.degree_listing_page.default
 targetEntityType: node
 bundle: degree_listing_page
