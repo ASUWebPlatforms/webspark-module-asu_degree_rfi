@@ -1,15 +1,18 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
-    - field.storage.node.field_degree_listing_video
-    - media.type.video
-    - node.type.degree_listing_page
-id: node.degree_listing_page.field_degree_listing_video
-field_name: field_degree_listing_video
+    - field.storage.node.field_deg_dtl_attend_online_img
+    - media.type.image
+    - node.type.degree_detail_page
+id: node.degree_detail_page.field_deg_dtl_attend_online_img
+field_name: field_deg_dtl_attend_online_img
 entity_type: node
-bundle: degree_listing_page
-label: Video
+bundle: degree_detail_page
+label: 'Attend online image'
 description: ''
 required: false
 translatable: false
@@ -19,7 +22,7 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
-      video: video
+      image: image
     sort:
       field: _none
       direction: ASC

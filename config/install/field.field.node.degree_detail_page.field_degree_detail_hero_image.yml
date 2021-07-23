@@ -1,15 +1,18 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
-    - field.storage.node.field_degree_detail_intro_image
+    - field.storage.node.field_degree_detail_hero_image
     - media.type.image
     - node.type.degree_detail_page
-id: node.degree_detail_page.field_degree_detail_intro_image
-field_name: field_degree_detail_intro_image
+id: node.degree_detail_page.field_degree_detail_hero_image
+field_name: field_degree_detail_hero_image
 entity_type: node
 bundle: degree_detail_page
-label: 'Intro image'
+label: 'Hero image'
 description: ''
 required: false
 translatable: false

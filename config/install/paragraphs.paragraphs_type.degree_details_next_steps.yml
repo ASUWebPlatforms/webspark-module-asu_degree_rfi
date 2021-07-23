@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
 id: degree_details_next_steps
 label: 'Degree details next steps card'
 icon_uuid: null

@@ -1,15 +1,16 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
-    - media
     - node
-id: node.field_degree_listing_intro_image
-field_name: field_degree_listing_intro_image
+id: node.field_deg_dtl_anchor_app_reqs
+field_name: field_deg_dtl_anchor_app_reqs
 entity_type: node
-type: entity_reference
-settings:
-  target_type: media
+type: boolean
+settings: {  }
 module: core
 locked: false
 cardinality: 1

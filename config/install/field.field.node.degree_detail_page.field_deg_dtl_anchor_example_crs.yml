@@ -1,20 +1,23 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
-    - field.storage.node.field_degree_detail_rfi
+    - field.storage.node.field_deg_dtl_anchor_example_crs
     - node.type.degree_detail_page
-id: node.degree_detail_page.field_degree_detail_rfi
-field_name: field_degree_detail_rfi
+id: node.degree_detail_page.field_deg_dtl_anchor_example_crs
+field_name: field_deg_dtl_anchor_example_crs
 entity_type: node
 bundle: degree_detail_page
-label: 'Display RFI form'
+label: 'Example careers'
 description: ''
 required: false
 translatable: false
 default_value:
   -
-    value: 1
+    value: 0
 default_value_callback: ''
 settings:
   on_label: 'On'

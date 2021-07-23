@@ -1,15 +1,19 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   config:
-    - field.storage.node.field_degree_listing_intro_image
+    - field.storage.node.field_degree_detail_intro_media
     - media.type.image
-    - node.type.degree_listing_page
-id: node.degree_listing_page.field_degree_listing_intro_image
-field_name: field_degree_listing_intro_image
+    - media.type.video
+    - node.type.degree_detail_page
+id: node.degree_detail_page.field_degree_detail_intro_media
+field_name: field_degree_detail_intro_media
 entity_type: node
-bundle: degree_listing_page
-label: Image
+bundle: degree_detail_page
+label: 'Intro image / video'
 description: ''
 required: false
 translatable: false
@@ -20,9 +24,10 @@ settings:
   handler_settings:
     target_bundles:
       image: image
+      video: video
     sort:
       field: _none
       direction: ASC
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: image
 field_type: entity_reference

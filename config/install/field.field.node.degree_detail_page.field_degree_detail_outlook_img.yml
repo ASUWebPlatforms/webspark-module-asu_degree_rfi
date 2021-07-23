@@ -5,6 +5,9 @@ dependencies:
     - field.storage.node.field_degree_detail_outlook_img
     - media.type.image
     - node.type.degree_detail_page
+  enforced:
+    module:
+      - asu_degree_rfi
 id: node.degree_detail_page.field_degree_detail_outlook_img
 field_name: field_degree_detail_outlook_img
 entity_type: node
