@@ -20,6 +20,8 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function getCacheTags() {
+    // Default block caching works for now. Cache is invalidated when
+    // node is updated and that fits our use-case.
     // Define cache tag.
     // Gets invalidated when ... TBD
     return Cache::mergeTags(parent::getCacheTags(), array('degree_details_block_cache'));
