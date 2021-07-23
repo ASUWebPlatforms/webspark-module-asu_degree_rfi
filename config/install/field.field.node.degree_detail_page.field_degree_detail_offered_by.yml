@@ -4,6 +4,9 @@ dependencies:
   config:
     - field.storage.node.field_degree_detail_offered_by
     - node.type.degree_detail_page
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - link
 id: node.degree_detail_page.field_degree_detail_offered_by

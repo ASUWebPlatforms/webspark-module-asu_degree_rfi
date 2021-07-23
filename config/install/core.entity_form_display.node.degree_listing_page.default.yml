@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.degree_listing_page.field_degree_list_hero_image
     - field.field.node.degree_listing_page.field_degree_list_hero_size
     - field.field.node.degree_listing_page.field_degree_list_hero_title
+    - field.field.node.degree_listing_page.field_degree_list_hide_colschl
     - field.field.node.degree_listing_page.field_degree_list_intro_content
     - field.field.node.degree_listing_page.field_degree_list_intro_title
     - field.field.node.degree_listing_page.field_degree_list_intro_type
@@ -18,9 +19,12 @@ dependencies:
     - field.field.node.degree_listing_page.field_degree_list_program
     - field.field.node.degree_listing_page.field_degree_list_show_filters
     - field.field.node.degree_listing_page.field_degree_list_show_search
-    - field.field.node.degree_listing_page.field_degree_listing_intro_image
-    - field.field.node.degree_listing_page.field_degree_listing_video
+    - field.field.node.degree_listing_page.field_degree_listing_intro_media
+    - field.field.node.degree_listing_page.layout_builder__layout
     - node.type.degree_listing_page
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - field_group
     - media_library
@@ -35,7 +39,7 @@ third_party_settings:
         - field_degree_list_hero_title
         - field_degree_list_hero_highlight
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       region: content
       format_settings:
@@ -51,10 +55,9 @@ third_party_settings:
         - field_degree_list_header
         - field_degree_list_intro_content
         - field_degree_list_photo_grid
-        - field_degree_listing_intro_image
-        - field_degree_listing_video
+        - field_degree_listing_intro_media
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: fieldset
       region: content
       format_settings:
@@ -75,7 +78,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_degree_list_apply_now_url:
-    weight: 15
+    weight: 16
     settings:
       size: 60
       placeholder: ''
@@ -92,18 +95,16 @@ content:
   field_degree_list_college_code:
     weight: 7
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
     third_party_settings: {  }
-    type: string_textfield
+    type: options_select
     region: content
   field_degree_list_dept_code:
     weight: 8
     settings:
-      size: 60
-      placeholder: ''
+      width: 100%
     third_party_settings: {  }
-    type: string_textfield
+    type: options_select
     region: content
   field_degree_list_header:
     weight: 20
@@ -114,7 +115,7 @@ content:
     type: string_textfield
     region: content
   field_degree_list_hero_highlight:
-    weight: 15
+    weight: 16
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -127,19 +128,26 @@ content:
     third_party_settings: {  }
     region: content
   field_degree_list_hero_size:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_degree_list_hero_title:
-    weight: 14
+    weight: 15
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_degree_list_hide_colschl:
+    type: boolean_checkbox
+    weight: 13
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_degree_list_intro_content:
     weight: 21
     settings:
@@ -189,16 +197,9 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
-  field_degree_listing_intro_image:
+  field_degree_listing_intro_media:
     type: media_library_widget
-    weight: 23
-    settings:
-      media_types: {  }
-    third_party_settings: {  }
-    region: content
-  field_degree_listing_video:
-    type: media_library_widget
-    weight: 24
+    weight: 26
     settings:
       media_types: {  }
     third_party_settings: {  }
@@ -248,4 +249,5 @@ content:
       match_limit: 10
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  layout_builder__layout: true

@@ -1,7 +1,9 @@
-uuid: b480272f-29cc-4cc4-bfba-cd4cecc9e5e4
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - fontawesome
     - paragraphs

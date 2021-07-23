@@ -4,15 +4,20 @@ dependencies:
   config:
     - field.storage.node.field_degree_list_dept_code
     - node.type.degree_listing_page
+  enforced:
+    module:
+      - asu_degree_rfi
+  module:
+    - options
 id: node.degree_listing_page.field_degree_list_dept_code
 field_name: field_degree_list_dept_code
 entity_type: node
 bundle: degree_listing_page
-label: 'Department code'
-description: 'Enter a valid department code to filter degree listings. To identify department codes refer to the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=undergrad" target="_blank">undergraduate degree departments data service</a> or the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=graduate" target="_blank">graduate degree departments data service</a> to find a DepartmentCode that matches your department''s name. Note: you may want to install a JSON formatter browser extension or paste the page output into an online JSON formatter to render the data human-readable.'
+label: Department
+description: 'Select a department to pre-filter listing results.'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: list_string

@@ -3,7 +3,7 @@ description: ASU Web Standards 2 Degree listing page, degree details page and RF
 type: module
 core_version_requirement: ^8 || ^9
 package: ASU
-# configure: asu_brand.asu_brand_settings
+configure: asu_degree_rfi.asu_degree_rfi_settings
 dependencies:
   - paragraphs:paragraphs
   - field_group:field_group

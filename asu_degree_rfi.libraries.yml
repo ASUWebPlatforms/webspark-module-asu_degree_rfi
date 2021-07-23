@@ -1,7 +1,30 @@
-components-library:
+asu-degree-rfi-core:
+  version: 1.0.0
   dependencies:
+    - asu_react_integration/reactjs
     - core/jquery
     - core/drupal
     - core/drupalSettings
+app-rfi:
+  version: 1.0.0
+  dependencies:
+    - asu_degree_rfi/asu-degree-rfi-core
   js:
-    js/asu_degree_rfi.js: {}
+    node_modules/@asu-design-system/app-rfi/dist/appRfi.min.js: {}
+    js/asu_degree_rfi.rfi.js: {}
+degree-page-core:
+  dependencies:
+    - asu_degree_rfi/asu-degree-rfi-core
+  js:
+    node_modules/@asu-design-system/app-degree-pages/dist/vendor.production.js: { }
+    node_modules/@asu-design-system/app-degree-pages/dist/degreePages.production.js: { }
+degree-listing-page:
+  dependencies:
+    - asu_degree_rfi/degree-page-core
+  js:
+    js/asu_degree_listing_page.js: {}
+program-detail-page:
+  dependencies:
+    - asu_degree_rfi/degree-page-core
+  js:
+    js/asu_program-detail-page.js: { }
