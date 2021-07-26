@@ -53,6 +53,10 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     if ($node && !($node instanceof \Drupal\node\NodeInterface || $node->bundle() == 'degree_listing_page')) {
       return;
     }
+
+    //Default images.
+    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder();
+
     $actionUrls = new \stdClass();
     if ($node->field_degree_list_apply_now_url) {
       $actionUrls->applyNowUrl = $node->field_degree_list_apply_now_url->value;
@@ -176,11 +180,11 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     $programList->dataSource->cert = $certs_minors;
 
     if ($node->field_degree_list_college_code->value) {
-      $programList->dataSource->CollegeAcadOrg = $node->field_degree_list_college_code->value;
+      $programList->dataSource->collegeAcadOrg = $node->field_degree_list_college_code->value;
     }
 
     if ($node->field_degree_list_dept_code->value) {
-      $programList->dataSource->DepartmentCode = $node->field_degree_list_dept_code->value;
+      $programList->dataSource->departmentCode = $node->field_degree_list_dept_code->value;
     }
     $props['programList'] = $programList;
 
