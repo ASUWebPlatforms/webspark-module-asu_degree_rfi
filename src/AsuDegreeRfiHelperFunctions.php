@@ -59,4 +59,11 @@ class AsuDegreeRfiHelperFunctions {
     return $card;
   }
 
+  public function getappPathFolder() {
+    $module_handler = \Drupal::service('module_handler');
+    $path_module = $module_handler->getModule('asu_degree_rfi')->getPath();
+    $appPathFolder = base_path() . $path_module . '/node_modules/@asu-design-system/app-degree-pages/dist';
+    return $appPathFolder;
+  }
+
 }

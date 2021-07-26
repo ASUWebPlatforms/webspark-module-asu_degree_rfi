@@ -52,6 +52,9 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     // Rally props to pass to JS as drupalSettings.
     $props = [];
 
+    //Default images.
+    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder();
+
     $dataSource = new \stdClass();
     if ($global_config->get('asu_degree_rfi.program_detail_datasource_endpoint')) {
       $dataSource->endpoint = $global_config->get('asu_degree_rfi.program_detail_datasource_endpoint');
