@@ -7,3 +7,4 @@ configure: asu_degree_rfi.asu_degree_rfi_settings
 dependencies:
   - paragraphs:paragraphs
   - field_group:field_group
+  - webspark_blocks
