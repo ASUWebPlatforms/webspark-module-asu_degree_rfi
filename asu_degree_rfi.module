@@ -104,6 +104,37 @@ function asu_degree_rfi_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_load() to check Degree details pages for need
+ *   to publish/unpublish.
+ */
+//function asu_degree_rfi_node_load($entities) {
+function asu_degree_rfi_node_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+
+  // Pull in service client for Degree Search.
+  $degreeSearchClient = \Drupal::getContainer()->get('asu_degree_rfi_degree_search_client');
+
+  dpm($entity);
+  if ($entity->bundle() === 'degree_detail_page') {
+    dpm('in');
+    $acad_plan_code = $entity->get('field_degree_detail_acadplancode')->getValue();
+    dpm($acad_plan_code);
+    $degreeExists = $degreeSearchClient->getDegreeByAcadPlan($acad_plan_code[0]['value']);
+    dpm($degreeExists);
+    if (!$degreeExists) {
+      dpm('does not exist');
+      dpm($entity->id());
+      $node = \Drupal\node\Entity\Node::load($entity->id());
+      // Unpublish
+      $node->setPublished(FALSE);
+      $node->save();
+    } else {
+    }
+  }
+
+  //$degreeExists = $degreeSearchClient->getDegreeByAcadPlan($acad_plan_code);
+}
+
+/**
  * Implements hook_field_widget_multivalue_form_alter().
  */
 function asu_degree_rfi_field_widget_multivalue_form_alter(array &$elements, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
