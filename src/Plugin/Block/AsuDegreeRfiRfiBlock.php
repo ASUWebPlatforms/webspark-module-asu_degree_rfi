@@ -96,6 +96,10 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
    */
   public function build() {
 
+    // If a degree detail page, gets the Program of Interest to be a default
+    // fallback value for the PoI in the props.
+    $route_pgm_of_interest = \Drupal::service('asu_degree_rfi.helper_functions')->getRouteProgramOfInterest();
+
     // RFI component blocks are deployed in 1 of 2 ways:
     // 1. RFI form component blocks are automatically created and configured
     //    with on-demand Degree detail page creation, with program of interest
@@ -120,7 +124,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $props['department'] = $config['asu_degree_rfi_department'] ? $config['asu_degree_rfi_department'] : null;
     $props['studentType'] = $config['asu_degree_rfi_student_type'] ? $config['asu_degree_rfi_student_type'] : null;
     $props['areaOfInterest'] = $config['asu_degree_rfi_area_of_interest'] ? $config['asu_degree_rfi_area_of_interest'] : null;
-    $props['programOfInterest'] = $config['asu_degree_rfi_program_of_interest'] ? $config['asu_degree_rfi_program_of_interest'] : null;
+    $props['programOfInterest'] = $config['asu_degree_rfi_program_of_interest'] ? $config['asu_degree_rfi_program_of_interest'] : $route_pgm_of_interest;
     $props['programOfInterestOptional'] = $config['asu_degree_rfi_p_of_i_optional'] ? $config['asu_degree_rfi_p_of_i_optional'] : null;
     $props['isCertMinor'] = $config['asu_degree_rfi_is_cert_minor'] ? $config['asu_degree_rfi_is_cert_minor'] : null;
     $props['country'] = $config['asu_degree_rfi_country'] ? $config['asu_degree_rfi_country'] : null;
@@ -180,6 +184,25 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $form = parent::blockForm($form, $form_state);
     // Note: more configs required for component props (dataSource* fields) are
     // sourced from module admin settings.
+
+    // Check if the form is loading in layout builder. If yes, and is a
+    // degree_detail_page, get the Program of Interest to us as default value.
+    // Note: the block output defaults to the node's PoI value in build if the
+    // block's PoI field is empty and it's displaying on a degree_detail_page.
+    // We do this to ensure proper contextuality and because by default the
+    // value is empty on the blocks.
+    $current_path = substr(\Drupal::service('path.current')->getPath(), 1);
+    // TODO Turns out it's difficult to get the node ID or uuid for the node
+    // in this context, so we turn to the path. Maybe there's a better way?
+    $path_args = explode('/', $current_path);
+    $route_pgm_of_interest = '';
+    if ($path_args[0] === 'layout_builder') {
+      $nid_part = explode('.', $path_args[4])[1];
+      $lb_node = \Drupal\node\Entity\Node::load($nid_part);
+      if ($lb_node instanceof \Drupal\node\NodeInterface && $lb_node->bundle() === 'degree_detail_page') {
+        $route_pgm_of_interest = $lb_node->get('field_degree_detail_acadplancode')->getvalue()[0]['value'];
+      }
+    }
 
     $cache_time_to_live = AsuDegreeRfiInterface::ASU_DEGREE_RFI_CACHE_LIFE;
 
@@ -300,7 +323,6 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
       '#default_value' => isset($config['asu_degree_rfi_student_type']) ?
         $config['asu_degree_rfi_student_type'] : '',
     ];
-    // TODO svc call for options .... or turn into text field
     $form['asu_degree_rfi_area_of_interest'] = [
       '#type' => 'select',
       '#title' => $this->t('Area of interest'),
@@ -309,15 +331,14 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
       '#default_value' => isset($config['asu_degree_rfi_area_of_interest']) ?
         $config['asu_degree_rfi_area_of_interest'] : '',
     ];
-    // TODO svc call for options .... or turn into text field
     // AKA plan code or academic plan code.
     $form['asu_degree_rfi_program_of_interest'] = [
       '#type' => 'select',
       '#title' => $this->t('Program of interest'),
       '#description' => $this->t('Preconfigure RFI with a program of interest.'),
       '#options' => array_merge(['' => $this->t('None')], $poi_options),
-      '#default_value' => isset($config['asu_degree_rfi_program_of_interest']) ?
-        $config['asu_degree_rfi_program_of_interest'] : '',
+      '#default_value' => !empty($config['asu_degree_rfi_program_of_interest']) ?
+        $config['asu_degree_rfi_program_of_interest'] : $route_pgm_of_interest,
     ];
     $form['asu_degree_rfi_p_of_i_optional'] = [
       '#type' => 'checkbox',

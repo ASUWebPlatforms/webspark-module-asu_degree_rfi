@@ -100,7 +100,7 @@ third_party_settings:
               asu_degree_rfi_success_msg:
                 value: ''
                 format: basic_html
-              asu_degree_rfi_test: 1
+              asu_degree_rfi_test: 0
               context_mapping: {  }
             additional: {  }
             weight: 1
