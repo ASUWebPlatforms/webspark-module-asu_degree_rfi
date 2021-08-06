@@ -174,10 +174,10 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
       $programList->dataSource->init = $global_config->get('asu_degree_rfi.program_list_datasource_init');
     }
     if ($node->field_degree_list_hide_colschl->value) {
-      $programList->settings->hideCollegeSchool = (bool) $node->Field_degree_list_hide_colschl->value;
+      $programList->settings->hideCollegeSchool = $node->Field_degree_list_hide_colschl->value ? 'true' : "false";
     }
     $programList->dataSource->program = $program;
-    $programList->dataSource->cert = $certs_minors;
+    $programList->dataSource->cert = $certs_minors_str;
 
     if ($node->field_degree_list_college_code->value) {
       $programList->dataSource->collegeAcadOrg = $node->field_degree_list_college_code->value;
