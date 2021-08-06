@@ -184,6 +184,7 @@ function asu_degree_rfi_dept_code_allowed_values(FieldStorageConfig $definition,
     $dept_gcert = $degreeSearchClient->departments('graduate', 'true');
     // Merge with headings to break up a looong select list.
     $dept_options = array_merge($dept_ugrad, $dept_grad, $dept_ucert, $dept_gcert);
+    asort($dept_options);
     // Set the cache.
     \Drupal::cache()
       ->set($cid, $dept_options, strtotime($cache_time_to_live));
