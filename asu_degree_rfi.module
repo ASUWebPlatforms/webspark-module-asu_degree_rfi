@@ -76,6 +76,11 @@ function asu_degree_rfi_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
     // More descriptive "none" label.
     $form['field_degree_list_hero_size']['widget']['#options']['_none'] = t("- system default / reset -");
 
+    // None defaults to gold, and that's the first option, so just unset none
+    // as it's redundant and confusing. If the default or field options order
+    // ever changes, this may need to be tweaked.
+    unset($form['field_degree_list_hero_highlight']['widget']['#options']['_none']);
+
     $form['field_asu_degree_rfi_intro_markup'] = [
       '#type' => 'markup',
       '#markup' => t($intro_markup, ['@type' => "degree listing"]),
