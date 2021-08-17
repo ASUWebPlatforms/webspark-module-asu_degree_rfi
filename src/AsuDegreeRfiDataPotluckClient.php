@@ -86,7 +86,6 @@ class AsuDegreeRfiDataPotluckClient {
   }
 
 
-
   /**
    * Get colleges (options-ready).
    *
@@ -108,5 +107,29 @@ class AsuDegreeRfiDataPotluckClient {
     }
     asort($college_output);
     return $college_output;
+  }
+
+
+  /**
+   * Get campuses (options-ready).
+   *
+   * @return array
+   */
+  public function campuses() {
+    $campus_output = [];
+    try {
+      $response = $this->client->get('api/codeset/campuses');
+      $json_data =  Json::decode($response->getBody());
+
+      foreach ($json_data as $row) {
+        $campus_output[$row["campusCode"]] = $row["description"] . " : " . $row['campusCode'];
+      }
+    } catch (RequestException $exception) {
+      $msg = t("Failed to retrieve campus field data: :code - :msg", [":code" => $exception->getCode(), ":msg" => $exception->getMessage()]);
+      \Drupal::logger('asu_degree_rfi')->error($msg);
+      \Drupal::messenger()->addError(t('Please try again in 5 minutes.') . ' ' . $msg);
+    }
+    asort($campus_output);
+    return $campus_output;
   }
 }
