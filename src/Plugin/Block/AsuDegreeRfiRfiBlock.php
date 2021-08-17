@@ -120,6 +120,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $props = [];
     // From block instance config.
     $props['campus'] = $config['asu_degree_rfi_campus'] ? $config['asu_degree_rfi_campus'] : null;
+    $props['actualCampus'] = $config['asu_degree_rfi_actual_campus'] ? $config['asu_degree_rfi_actual_campus'] : null;
     $props['college'] = $config['asu_degree_rfi_college'] ? $config['asu_degree_rfi_college'] : null;
     $props['department'] = $config['asu_degree_rfi_department'] ? $config['asu_degree_rfi_department'] : null;
     $props['studentType'] = $config['asu_degree_rfi_student_type'] ? $config['asu_degree_rfi_student_type'] : null;
@@ -264,16 +265,19 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
       $dept_gcert = $this->degreeSearchClient->departments('graduate', 'true');
       // Merge with headings to break up a looong select list.
       $dept_options = array_merge($dept_ugrad, $dept_grad, $dept_ucert, $dept_gcert);
+      asort($dept_options);
       // Set the cache.
       \Drupal::cache()
         ->set($cid, $dept_options, strtotime($cache_time_to_live));
     }
 
-    // Get college, country and state options from Data Potluck services.
-    // Only US and CA states/provinces. These are lightweight, so we don't
-    // bother caching.
+    // Get college, campus, country and state options from Data Potluck
+    // services. Only US and CA states/provinces. These are lightweight, so we
+    // don't bother caching.
     $college_options = [];
     $college_options = $this->dataPotluckClient->colleges();
+    $actual_campus_options = [];
+    $actual_campus_options = $this->dataPotluckClient->campuses();
     $country_options = [];
     $country_options = $this->dataPotluckClient->countries();
     $state_province_options = [];
@@ -285,7 +289,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $form['asu_degree_rfi_college'] = [
       '#type' => 'select',
       '#title' => $this->t('College'),
-      '#description' => $this->t('By selecting a college, degrees listed on the RFI form will be limited to those offered the the college.'),
+      '#description' => $this->t('By selecting a college, degrees listed on the RFI form will be limited to those offered at that college.'),
       '#options' => array_merge(['' => $this->t('None')], $college_options),
       '#default_value' => isset($config['asu_degree_rfi_college']) ?
         $config['asu_degree_rfi_college'] : null
@@ -293,15 +297,15 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $form['asu_degree_rfi_department'] = [
       '#type' => 'select',
       '#title' => $this->t('Department code'),
-      //'#description' => $this->t('Enter a valid department code to filter degree listings. To identify department codes refer to the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=undergrad" target="_blank">undergraduate degree departments data service</a> or the <a href="https://degreesearch-proxy.apps.asu.edu/degreesearch/?method=findAllDegrees&init=false&fields=DepartmentCode,DepartmentName&cert=false&program=graduate" target="_blank">graduate degree departments data service</a> to find a DepartmentCode that matches your department\'s name. Note: you may want to install a JSON formatter browser extension or paste the page output into an online JSON formatter to render the data human-readable.'),
+      '#description' => $this->t('By selecting a department code, degrees listed on the RFI form will be limited to those offered at that department.'),
       '#options' => array_merge(['' => $this->t('None')], $dept_options),
       '#default_value' => isset($config['asu_degree_rfi_department']) ?
         $config['asu_degree_rfi_department'] : null
     ];
     $form['asu_degree_rfi_campus'] = [
       '#type' => 'select',
-      '#title' => $this->t('Campus'),
-      '#description' => $this->t('Preconfigure RFI for a campus choice.'),
+      '#title' => $this->t('Campus type'),
+      '#description' => $this->t('Preconfigure the RFI form for a campus type.'),
       '#options' => [
         '' => $this->t('None'),
         'GROUND' => $this->t('On campus'),
@@ -310,6 +314,14 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
       ],
       '#default_value' => isset($config['asu_degree_rfi_campus']) ?
         $config['asu_degree_rfi_campus'] : '',
+    ];
+    $form['asu_degree_rfi_actual_campus'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Campus'),
+      '#description' => $this->t('By selecting a campus, degrees listed on the RFI form will be limited to those offered at that campus.'),
+      '#options' => array_merge(['' => $this->t('None')], $actual_campus_options),
+      '#default_value' => isset($config['asu_degree_rfi_actual_campus']) ?
+        $config['asu_degree_rfi_actual_campus'] : null
     ];
     $form['asu_degree_rfi_student_type'] = [
       '#type' => 'select',
@@ -425,6 +437,8 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
       $values['asu_degree_rfi_department'];
     $this->configuration['asu_degree_rfi_campus'] =
       $values['asu_degree_rfi_campus'];
+    $this->configuration['asu_degree_rfi_actual_campus'] =
+      $values['asu_degree_rfi_actual_campus'];
     $this->configuration['asu_degree_rfi_student_type'] =
       $values['asu_degree_rfi_student_type'];
     $this->configuration['asu_degree_rfi_area_of_interest'] =
