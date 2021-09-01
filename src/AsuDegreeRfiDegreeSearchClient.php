@@ -40,25 +40,12 @@ class AsuDegreeRfiDegreeSearchClient {
    *
    * @return array
    */
-  public function degreeQuery(
-    // Set some defaults if no values provided.
-    $program = 'undergrad',
-    $cert = "false",
-    $method = "findAllDegrees",
-    $fields, // A comma separated list of fields.
-    $init = "false"
-  ) {
+  public function degreeQuery($params) {
 
     $output = null;
     try {
       $response = $this->client->get('degreesearch/', [
-        'query' => [
-          'program' => $program,
-          'cert' => $cert,
-          'method' => $method,
-          'fields' => $fields,
-          'init' => $init
-        ]
+        'query' => $params // array of params including method and fields
       ]);
       $output = Json::decode($response->getBody());
     } catch (RequestException $exception) {
@@ -66,6 +53,7 @@ class AsuDegreeRfiDegreeSearchClient {
       $msg = t("Failed to retrieve degree field data: :code - :msg", [":code" => $exception->getCode(), ":msg" => $exception->getMessage()]);
       \Drupal::logger('asu_degree_rfi')->error($msg);
       \Drupal::messenger()->addError(t('Please try again in 5 minutes.') . ' ' . $msg);
+      return $output = false;
     }
 
     return $output;
@@ -84,11 +72,13 @@ class AsuDegreeRfiDegreeSearchClient {
     $aoi_options = [];
 
     $response = $this->degreeQuery(
-      $program,
-      $cert,
-      "findAllDegrees",
-      "planCatDescr",
-      "false"
+      [
+        'program' => $program,
+        'cert' => $cert,
+        'method' => 'findAllDegrees',
+        'fields' => 'planCatDescr',
+        'init' => 'false'
+      ]
     );
 
     // Process and return as options-ready key-value array.
@@ -115,11 +105,13 @@ class AsuDegreeRfiDegreeSearchClient {
     $poi_options = [];
 
     $response = $this->degreeQuery(
-      $program,
-      $cert,
-      "findAllDegrees",
-      "Descr100,AcadPlan",
-      "false"
+      [
+        'program' => $program,
+        'cert' => $cert,
+        'method' => 'findAllDegrees',
+        'fields' => 'Descr100,AcadPlan',
+        'init' => 'false'
+      ]
     );
 
     // Process and return as options-ready key-value array.
@@ -143,11 +135,13 @@ class AsuDegreeRfiDegreeSearchClient {
     $dept_options = [];
 
     $response = $this->degreeQuery(
-      $program,
-      $cert,
-      "findAllDegrees",
-      "DepartmentCode,DepartmentName",
-      "false"
+      [
+        'program' => $program,
+        'cert' => $cert,
+        'method' => 'findAllDegrees',
+        'fields' => 'DepartmentCode,DepartmentName',
+        'init' => 'false'
+      ]
     );
 
     // Process and return as options-ready key-value array.
@@ -156,5 +150,27 @@ class AsuDegreeRfiDegreeSearchClient {
     }
     asort($dept_options, SORT_STRING);
     return $dept_options;
+  }
+
+  /**
+   * Get degree by AcadPlan.
+   *
+   * @param string $program
+   *
+   * @return boolean
+   */
+  public function getDegreeByAcadPlan($acad_plan_code) {
+
+    $response = $this->degreeQuery(
+      [
+        'method' => 'findDegreeByAcadPlan',
+        'acadPlan' => $acad_plan_code,
+        'fields' => 'AcadPlan,Descr100,AcadProg,AcadPlanType',
+        'init' => 'false'
+      ]
+    );
+
+    // Only the one... or none.
+    return is_array($response) ? $response['programs'] : false;
   }
 }
