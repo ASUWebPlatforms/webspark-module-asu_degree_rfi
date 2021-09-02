@@ -14,7 +14,7 @@ field_name: field_degree_list_college_code
 entity_type: node
 bundle: degree_listing_page
 label: College
-description: 'Select a college to pre-filter listing results.'
+description: 'By selecting a College, degrees listed on the Degree listing page will be limited to those offered at that college. Colleges may consist of multiple departments and results will include degrees for all of them if Department is set to None.'
 required: false
 translatable: false
 default_value: {  }
