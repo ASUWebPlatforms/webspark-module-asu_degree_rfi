@@ -289,7 +289,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $form['asu_degree_rfi_college'] = [
       '#type' => 'select',
       '#title' => $this->t('College'),
-      '#description' => $this->t('By selecting a college, degrees listed on the RFI form will be limited to those offered at that college.'),
+      '#description' => $this->t('By selecting a College, degrees listed on the RFI form will be limited to those offered at that college. Colleges may contain multiple Departments.'),
       '#options' => array_merge(['' => $this->t('None')], $college_options),
       '#default_value' => isset($config['asu_degree_rfi_college']) ?
         $config['asu_degree_rfi_college'] : null
@@ -297,7 +297,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $form['asu_degree_rfi_department'] = [
       '#type' => 'select',
       '#title' => $this->t('Department code'),
-      '#description' => $this->t('By selecting a department code, degrees listed on the RFI form will be limited to those offered at that department.'),
+      '#description' => $this->t('By selecting a Department code, degrees listed on the RFI form will be limited to those offered at that department. When configuring a Department code it is not necessary to configure a College.'),
       '#options' => array_merge(['' => $this->t('None')], $dept_options),
       '#default_value' => isset($config['asu_degree_rfi_department']) ?
         $config['asu_degree_rfi_department'] : null
