@@ -142,6 +142,12 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
             $introContent->video = $video;
           }
           break;
+        case 'remote_video':
+          $video = \Drupal::service('asu_degree_rfi.helper_functions')->getRemoteVideoFieldValue($node->field_degree_detail_intro_media);
+          if (!empty((array)$video)) {
+            $introContent->video = $video;
+          }
+          break;
       }
     }
 
