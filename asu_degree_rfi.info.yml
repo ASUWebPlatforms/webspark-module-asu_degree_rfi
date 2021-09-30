@@ -8,3 +8,4 @@ dependencies:
   - paragraphs:paragraphs
   - field_group:field_group
   - webspark_blocks
+  - pathauto
