@@ -31,6 +31,7 @@ class AsuDegreeRfiHelperFunctions {
     $video = new \stdClass();
     if ($field->entity && $field->entity->field_media_oembed_video->value) {
       $video->url = $field->entity->field_media_oembed_video->value;
+      $video->type = 'youtube';
     }
     return $video;
   }
