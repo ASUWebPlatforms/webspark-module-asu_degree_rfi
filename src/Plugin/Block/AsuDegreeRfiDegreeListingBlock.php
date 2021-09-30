@@ -178,6 +178,9 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     }
     $programList->dataSource->program = $program;
     $programList->dataSource->cert = (bool) $certs_minors;
+    if ($certs_minors) {
+      $programList->dataSource->showInactivePrograms = 'true';
+    }
 
     if ($node->field_degree_list_college_code->value) {
       $programList->dataSource->collegeAcadOrg = $node->field_degree_list_college_code->value;
