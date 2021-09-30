@@ -30,3 +30,19 @@ function asu_degree_rfi_update_9001(&$sandbox) {
 
   return 'Updated ASU Degree RFI field configs.';
 }
+
+/**
+ * Revert all the module config.
+ */
+function asu_degree_rfi_update_9002(&$sandbox) {
+  // Get this module name.
+  $module = \Drupal::service('module_handler')
+    ->getModule(basename(__FILE__, '.install'))
+    ->getName();
+  // Unlock the configuration storage.
+  \Drupal::state()->set('configuration_locked', FALSE);
+  // Revert all configs from this module.
+  \Drupal::service('webspark.config_manager')->revertAll($module);
+  // Lock the configuration storage.
+  \Drupal::state()->set('configuration_locked', TRUE);
+}
