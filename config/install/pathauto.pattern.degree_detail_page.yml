@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - asu_degree_rfi
   module:
     - node
 id: degree_detail_page
