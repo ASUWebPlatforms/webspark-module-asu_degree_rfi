@@ -2,6 +2,18 @@
 
 use Drupal\field\Entity\FieldConfig;
 
+function asu_degree_rfi_module_preinstall($module) {
+  // Unlock the configuration storage for install.
+  \Drupal::state()->set('configuration_locked', FALSE);
+}
+
+function asu_degree_rfi_modules_installed($modules) {
+  if (in_array('asu_degree_rfi', $modules)) {
+    // Lock the configuration storage after install.
+    \Drupal::state()->set('configuration_locked', TRUE);
+  }
+}
+
 /**
  * Update field descriptions for Degree Listing page College and Department
  * fields.
