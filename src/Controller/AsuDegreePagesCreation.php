@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\asu_degree_rfi\AsuDegreeRfiDegreeSearchClient;
+use Drupal\asu_degree_rfi\AsuDegreeRfiInterface;
 
 /**
  * Controller for the RFI component proxy to the Submit Handler Lambda.
@@ -36,9 +37,9 @@ class AsuDegreePagesCreation extends ControllerBase {
 
   public function load() {
     $path = \Drupal::service('path.current')->getPath();
-    $pattern_ulr = '/^\/(bachelors\-degrees|undergraduate\-certificates|graduate\-certificates|masters\-degrees-phds)\/majorinfo\/[A-Z]+\/(undergrad|graduate)\/(true|false)\/[0-9]+$/';
+    $pattern_url = AsuDegreeRfiInterface::ASU_DEGREE_RFI_DETAIL_PATH_PATTERN;
 
-    if (preg_match($pattern_ulr, $path)) {
+    if (preg_match($pattern_url, $path)) {
       $split_path = explode('/', $path);
       $node = Node::create(['type' => 'degree_detail_page']);
       $degree_query = $this->degreeSearchClient->getDegreeByAcadPlan($split_path[3]);

@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Cache\Cache;
 use Drupal\asu_degree_rfi\AsuDegreeRfiInterface;
+use Drupal\Component\Utility\UrlHelper;
 
 /**
  * ASU Degree RFI module RFI component block.
@@ -100,6 +101,21 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     // fallback value for the PoI in the props.
     $route_pgm_of_interest = \Drupal::service('asu_degree_rfi.helper_functions')->getRouteProgramOfInterest();
 
+    // Get path alias so we can look up if this is a certificate.
+    $path = \Drupal::service('path.current')->getPath();
+    $path_alias = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+    $pattern_url = AsuDegreeRfiInterface::ASU_DEGREE_RFI_DETAIL_PATH_PATTERN;
+    // If path segment 5 is TRUE, it's a certificate. Set the default prop
+    // value to for that.
+    $isCertMinorDefault = null;
+    if (preg_match($pattern_url, $path_alias)) {
+      $split_path = explode('/', $path_alias);
+      if ($split_path[5] == "true") {
+        $isCertMinorDefault = TRUE;
+      }
+    }
+
+
     // RFI component blocks are deployed in 1 of 2 ways:
     // 1. RFI form component blocks are automatically created and configured
     //    with on-demand Degree detail page creation, with program of interest
@@ -127,7 +143,7 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $props['areaOfInterest'] = $config['asu_degree_rfi_area_of_interest'] ? $config['asu_degree_rfi_area_of_interest'] : null;
     $props['programOfInterest'] = $config['asu_degree_rfi_program_of_interest'] ? $config['asu_degree_rfi_program_of_interest'] : $route_pgm_of_interest;
     $props['programOfInterestOptional'] = $config['asu_degree_rfi_p_of_i_optional'] ? $config['asu_degree_rfi_p_of_i_optional'] : null;
-    $props['isCertMinor'] = $config['asu_degree_rfi_is_cert_minor'] ? $config['asu_degree_rfi_is_cert_minor'] : null;
+    $props['isCertMinor'] = $config['asu_degree_rfi_is_cert_minor'] ? $config['asu_degree_rfi_is_cert_minor'] : $isCertMinorDefault;
     $props['country'] = $config['asu_degree_rfi_country'] ? $config['asu_degree_rfi_country'] : null;
     $props['stateProvince'] = $config['asu_degree_rfi_state_province'] ? $config['asu_degree_rfi_state_province'] : null;
     $props['successMsg'] = $config['asu_degree_rfi_success_msg']['value'] ? $config['asu_degree_rfi_success_msg']['value'] : null;
