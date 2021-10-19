@@ -79,10 +79,10 @@ function asu_degree_rfi_update_9003(&$sandbox) {
  * Revert all the module config.
  */
 function asu_degree_rfi_update_9004(&$sandbox) {
-  _revert_all_module_config();
+  _asu_degree_rfi_revert_all_module_config();
 }
 
-function _revert_all_module_config() {
+function _asu_degree_rfi_revert_all_module_config() {
   // Get this module name.
   $module = \Drupal::service('module_handler')
     ->getModule(basename(__FILE__, '.install'))
