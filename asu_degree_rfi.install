@@ -74,3 +74,23 @@ function asu_degree_rfi_update_9003(&$sandbox) {
   // Lock the configuration storage.
   \Drupal::state()->set('configuration_locked', TRUE);
 }
+
+/**
+ * Revert all the module config.
+ */
+function asu_degree_rfi_update_9004(&$sandbox) {
+  _revert_all_module_config();
+}
+
+function _revert_all_module_config() {
+  // Get this module name.
+  $module = \Drupal::service('module_handler')
+    ->getModule(basename(__FILE__, '.install'))
+    ->getName();
+  // Unlock the configuration storage.
+  \Drupal::state()->set('configuration_locked', FALSE);
+  // Revert all configs from this module.
+  \Drupal::service('webspark.config_manager')->revertAll($module);
+  // Lock the configuration storage.
+  \Drupal::state()->set('configuration_locked', TRUE);
+}
