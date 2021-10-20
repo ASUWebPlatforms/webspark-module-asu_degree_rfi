@@ -18,7 +18,7 @@ settings:
       label: gold
     -
       value: black
-      label: black
+      label: 'gray 7'
     -
       value: white
       label: white

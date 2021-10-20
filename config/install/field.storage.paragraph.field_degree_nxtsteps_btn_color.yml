@@ -21,7 +21,7 @@ settings:
       label: gold
     -
       value: gray
-      label: gray
+      label: 'gray 2'
     -
       value: dark
       label: dark
