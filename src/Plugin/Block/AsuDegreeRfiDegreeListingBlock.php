@@ -50,8 +50,12 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     $props = [];
 
     $node = \Drupal::routeMatch()->getParameter('node');
+    if (!$node) {
+      return [];
+    }
+
     if ($node && !($node instanceof \Drupal\node\NodeInterface || $node->bundle() == 'degree_listing_page')) {
-      return;
+      return [];
     }
 
     //Default images.
@@ -86,7 +90,11 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     $props['actionUrls'] = $actionUrls;
 
     //Hero
-    $hero = new \stdClass();
+    $hero = (object)[
+      'image' => new \stdClass,
+      'title' => new \stdClass,
+    ];
+
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_list_hero_image);
     if (!empty((array)$image)) {
       $hero->image = $image;
@@ -105,7 +113,11 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     }
 
     //Intro content
-    $introContent = new \stdClass();
+    $introContent = (object)[
+      'type' => new \stdClass,
+      'header' => new \stdClass,
+      'title' => new \stdClass,
+    ];
 
     if ($node->field_degree_list_intro_type->value) {
       $introContent->type = $node->field_degree_list_intro_type->value;
@@ -162,7 +174,10 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
       $props['hasSearchBar'] = (bool) $node->field_degree_list_show_search->value;
     }
 
-    $programList = new \stdClass();
+    $programList = (object)[
+      'dataSource' => new \stdClass,
+      'settings' => new \stdClass,
+    ];
 
     if ($global_config->get('asu_degree_rfi.program_list_datasource_endpoint')) {
       $programList->dataSource->endpoint = $global_config->get('asu_degree_rfi.program_list_datasource_endpoint');
@@ -176,6 +191,17 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     if ($node->field_degree_list_hide_colschl->value) {
       $programList->settings->hideCollegeSchool = (bool) $node->field_degree_list_hide_colschl->value;
     }
+
+    if ($node->field_degree_list_default_view->value) {
+      $programList->settings->defaultView = $node->field_degree_list_default_view->value;
+    }
+
+    $card_default_image = \Drupal::service('asu_degree_rfi.helper_functions')
+      ->getImageFieldValue($node->field_degree_list_card_image);
+    if (!empty((array)$card_default_image)) {
+      $programList->settings->carDefaultImage = $card_default_image;
+    }
+
     $programList->dataSource->program = $program;
     $programList->dataSource->cert = (bool) $certs_minors;
     if ($certs_minors) {
