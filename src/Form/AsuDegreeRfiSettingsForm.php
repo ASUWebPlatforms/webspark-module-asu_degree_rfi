@@ -118,7 +118,7 @@ class AsuDegreeRfiSettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('RFI ASUOnline data source URL'),
       '#default_value' => $config->get('asu_degree_rfi.rfi_asuonline_datasource_endpoint'),
-      '#description' => $this->t("Recommended to be left blank to use default data source (https://asuonline.asu.edu/lead-submissions-v3.3/programs) defined internally by the RFI component."),
+      '#description' => $this->t("Recommended to be left blank to use default data source (https://cms.asuonline.asu.edu/lead-submissions-v3.5/programs) defined internally by the RFI component."),
     ];
     $form['asu_degree_rfi']['rfi']['rfi_country_province_datasource_endpoint'] = [
       '#type' => 'textfield',
