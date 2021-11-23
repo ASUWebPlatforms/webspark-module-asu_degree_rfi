@@ -101,9 +101,9 @@ class AsuDegreeRfiSettingsForm extends ConfigFormBase {
     $form['asu_degree_rfi']['rfi']['rfi_submission_handler_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('RFI submission handler URL'),
-      '#default_value' => $config->get('asu_degree_rfi.rfi_submission_handler_url') ? $config->get('asu_degree_rfi.rfi_submission_handler_url') : "https://crm-enterprise-rfi-forms-submit-handler.apps.asu.edu/",
+      '#default_value' => $config->get('asu_degree_rfi.rfi_submission_handler_url') ? $config->get('asu_degree_rfi.rfi_submission_handler_url') : "https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/",
       '#description' => $this->t("You shouldn't need to change this. For reference, environments:<br>
-         https://crm-enterprise-rfi-forms-submit-handler.apps.asu.edu/<br>
+         https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/<br>
          https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/<br>
          https://crm-enterprise-rfi-forms-submit-handler-sandbox.sdc.uto.asu.edu/"),
       '#required' => TRUE,
