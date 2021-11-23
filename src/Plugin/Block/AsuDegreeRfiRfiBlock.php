@@ -136,7 +136,9 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     $props = [];
     // From block instance config.
     $props['campus'] = $config['asu_degree_rfi_campus'] ? $config['asu_degree_rfi_campus'] : null;
-    $props['actualCampus'] = $config['asu_degree_rfi_actual_campus'] ? $config['asu_degree_rfi_actual_campus'] : null;
+    if (isset($config['asu_degree_rfi_actual_campus'])) {
+      $props['actualCampus'] = $config['asu_degree_rfi_actual_campus'] ? $config['asu_degree_rfi_actual_campus'] : null;
+    }
     $props['college'] = $config['asu_degree_rfi_college'] ? $config['asu_degree_rfi_college'] : null;
     $props['department'] = $config['asu_degree_rfi_department'] ? $config['asu_degree_rfi_department'] : null;
     $props['studentType'] = $config['asu_degree_rfi_student_type'] ? $config['asu_degree_rfi_student_type'] : null;
