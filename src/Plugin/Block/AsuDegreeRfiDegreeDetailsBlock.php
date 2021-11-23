@@ -69,21 +69,25 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $props['dataSource'] = $dataSource;
 
     //Hero
-    $hero = (object)[
-      'image' => new \stdClass,
-      'title' => new \stdClass,
-    ];
+    $hero = new \stdClass;
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_detail_hero_image);
     if (!empty((array)$image)) {
       $hero->image = $image;
     }
     if ($node->field_degree_detail_hero_size->value) {
+      if (empty($hero->image)) {
+        $hero->image = new \stdClass;
+      }
       $hero->image->size = $node->field_degree_detail_hero_size->value;
     }
     if ($node->field_degree_detail_hero_title->value) {
+      $hero->title = new \stdClass;
       $hero->title->text = $node->field_degree_detail_hero_title->value;
     }
     if ($node->field_degree_detail_hero_highlit->value) {
+      if (empty($hero->title)) {
+        $hero->title = new \stdClass;
+      }
       $hero->title->highlightColor = $node->field_degree_detail_hero_highlit->value;
     }
     if (!empty((array)$hero)) {
@@ -173,10 +177,9 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $props['introContent'] = $introContent;
 
     //AtAGlance
-    $atAGlance = (object)[
-      'offeredBy' => new \stdClass,
-    ];
+    $atAGlance = new \stdClass;
     if ($node->field_degree_detail_offered_by && $node->field_degree_detail_offered_by->title && $node->field_degree_detail_offered_by->uri) {
+      $atAGlance->offeredBy = new \stdClass;
       $atAGlance->offeredBy->text = $node->field_degree_detail_offered_by->title;
       $link = Url::fromUri($node->field_degree_detail_offered_by->uri);
       $atAGlance->offeredBy->url = $link->toString();

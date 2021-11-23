@@ -90,22 +90,26 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     $props['actionUrls'] = $actionUrls;
 
     //Hero
-    $hero = (object)[
-      'image' => new \stdClass,
-      'title' => new \stdClass,
-    ];
+    $hero = new \stdClass;
 
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_list_hero_image);
     if (!empty((array)$image)) {
       $hero->image = $image;
     }
     if ($node->field_degree_list_hero_size->value) {
+      if (empty($hero->image)) {
+        $hero->image = new \stdClass;
+      }
       $hero->image->size = $node->field_degree_list_hero_size->value;
     }
     if ($node->field_degree_list_hero_title->value) {
+      $hero->title = new \stdClass;
       $hero->title->text = $node->field_degree_list_hero_title->value;
     }
     if ($node->field_degree_list_hero_highlight->value) {
+      if (empty($hero->title)) {
+        $hero->title = new \stdClass;
+      }
       $hero->title->highlightColor = $node->field_degree_list_hero_highlight->value;
     }
     if (!empty((array)$hero)) {
@@ -113,21 +117,19 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     }
 
     //Intro content
-    $introContent = (object)[
-      'type' => new \stdClass,
-      'header' => new \stdClass,
-      'title' => new \stdClass,
-    ];
+    $introContent = new \stdClass;
 
     if ($node->field_degree_list_intro_type->value) {
       $introContent->type = $node->field_degree_list_intro_type->value;
     }
     if ($node->field_degree_list_header->value) {
+      $introContent->header = new \stdClass;
       $introContent->header->text = $node->field_degree_list_header->value;
     }
 
     //Type: text
     if ($node->field_degree_list_intro_title->value) {
+      $introContent->title = new \stdClass;
       $introContent->title->text = $node->field_degree_list_intro_title->value;
     }
     if ($node->field_degree_list_intro_content->value) {
@@ -174,32 +176,50 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
       $props['hasSearchBar'] = (bool) $node->field_degree_list_show_search->value;
     }
 
-    $programList = (object)[
-      'dataSource' => new \stdClass,
-      'settings' => new \stdClass,
-    ];
+    $programList = new \stdClass;
 
     if ($global_config->get('asu_degree_rfi.program_list_datasource_endpoint')) {
+      $programList->dataSource = new \stdClass;
       $programList->dataSource->endpoint = $global_config->get('asu_degree_rfi.program_list_datasource_endpoint');
     }
+
     if ($global_config->get('asu_degree_rfi.program_list_datasource_method')) {
+      if (empty($programList->dataSource)) {
+        $programList->dataSource = new \stdClass;
+      }
       $programList->dataSource->method = $global_config->get('asu_degree_rfi.program_list_datasource_method');
     }
+
     if ($global_config->get('asu_degree_rfi.program_list_datasource_init')) {
+      if (empty($programList->dataSource)) {
+        $programList->dataSource = new \stdClass;
+      }
       $programList->dataSource->init = $global_config->get('asu_degree_rfi.program_list_datasource_init');
     }
+
     if ($node->field_degree_list_hide_colschl->value) {
+      $programList->settings = new \stdClass;
       $programList->settings->hideCollegeSchool = (bool) $node->field_degree_list_hide_colschl->value;
     }
 
     if ($node->field_degree_list_default_view->value) {
+      if (empty($programList->settings)) {
+        $programList->settings = new \stdClass;
+      }
       $programList->settings->defaultView = $node->field_degree_list_default_view->value;
     }
 
     $card_default_image = \Drupal::service('asu_degree_rfi.helper_functions')
       ->getImageFieldValue($node->field_degree_list_card_image);
     if (!empty((array)$card_default_image)) {
+      if (empty($programList->settings)) {
+        $programList->settings = new \stdClass;
+      }
       $programList->settings->carDefaultImage = $card_default_image;
+    }
+
+    if (empty($programList->dataSource)) {
+      $programList->dataSource = new \stdClass;
     }
 
     $programList->dataSource->program = $program;
