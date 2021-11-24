@@ -215,7 +215,7 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
       if (empty($programList->settings)) {
         $programList->settings = new \stdClass;
       }
-      $programList->settings->carDefaultImage = $card_default_image;
+      $programList->settings->cardDefaultImage = $card_default_image;
     }
 
     if (empty($programList->dataSource)) {
