@@ -16,4 +16,8 @@ node_modules/@asu-design-system/app-degree-pages/.npm/_logs/
 !node_modules/@asu-design-system/app-rfi/
 node_modules/@asu-design-system/app-rfi/.npm/_logs/
 
+!node_modules/@asu-design-system/components-library
+node_modules/@asu-design-system/components-library/*
+!node_modules/@asu-design-system/components-library/dist
+
 /vendor/
