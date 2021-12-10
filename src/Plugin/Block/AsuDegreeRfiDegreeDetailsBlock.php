@@ -53,7 +53,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $props = [];
 
     //Default images.
-    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder();
+    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder('app-degree-pages');
 
     $dataSource = new \stdClass();
     if ($global_config->get('asu_degree_rfi.program_detail_datasource_endpoint')) {

@@ -157,6 +157,8 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
     // Submit to the local proxy route that this module provides.
     $props['submissionUrl'] = "/endpoint/asu-rfi-submit-proxy"; // TODO
     // DEBUG $props['submissionUrl'] = "https://httpbin.org/post"; // TODO
+    //Set default images path.
+    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder('app-rfi');
 
     // Remove empties as they don't transfer well to JSON.
     $props = array_filter($props);
