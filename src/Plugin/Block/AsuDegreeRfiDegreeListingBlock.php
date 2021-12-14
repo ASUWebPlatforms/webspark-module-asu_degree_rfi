@@ -59,7 +59,7 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     }
 
     //Default images.
-    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder();
+    $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder('app-degree-pages');
 
     $actionUrls = new \stdClass();
     if ($node->field_degree_list_apply_now_url) {
