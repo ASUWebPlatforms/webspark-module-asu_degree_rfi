@@ -20,5 +20,5 @@ interface AsuDegreeRfiInterface {
    * We depart some from the Degree Search URL pattern found at
    * https://docs.google.com/spreadsheets/d/1xHHT8v0EqBkKTasL0HM29lJdTbPcnCPso2AHkl_BPU4/edit#gid=0
    */
-  const ASU_DEGREE_RFI_DETAIL_PATH_PATTERN = '/^\/(bachelors\-degrees|undergraduate\-certificates|graduate\-certificates|masters\-degrees-phds)\/majorinfo\/[A-Z]+\/(undergrad|graduate)\/(true|false)\/[0-9]+$/';
+  const ASU_DEGREE_RFI_DETAIL_PATH_PATTERN = '/^\/(bachelors\-degrees|undergraduate\-certificates|graduate\-certificates|masters\-degrees-phds)\/majorinfo\/[A-Z0-9]+\/(undergrad|graduate)\/(true|false)\/[0-9]+$/';
 }
