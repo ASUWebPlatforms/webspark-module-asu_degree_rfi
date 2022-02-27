@@ -15,6 +15,44 @@ configured within Webspark 2 is found in the admin interface
 for the module at the path `/admin/config/asu_degree_rfi/settings`
 in your site.
 
+## Recommended RFI settings overrides
+Because you will often be syncing configurations between environments, 
+to avoid overwriting an environment's unique RFI Source ID and submission
+URL, it is recommended you add code to your site's settings.php to detect
+the environment and set its unique values. Below, you will find code
+that does this.
+
+Also included with this code are PHP timeout overrides we highly
+recommend you make to avoid receiving unnecessary false-positive error
+emails regarding RFI delivery timeouts.
+
+In the code below, please replace `<environsSourceIDHere>` with the 
+environment's matching Source ID.
+```
+// Environment-specific RFI settings. Drop this in your settings.php.
+if (defined('PANTHEON_ENVIRONMENT')) {
+  if (PANTHEON_ENVIRONMENT == 'dev') {
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
+      'https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/';
+  }
+  else if (PANTHEON_ENVIRONMENT == 'test') {
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
+      'https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/';
+  }
+  else if (PANTHEON_ENVIRONMENT == 'live') {
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
+    $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
+      'https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/';
+  }
+}
+// Increase max_execution_time for RFI to wait for response.
+ini_set('max_execution_time', '180');
+// HTTP Client config for RFI
+$settings['http_client_config']['timeout'] = 179; // -1 of max so time to complete
+```
+
 ## About Degree listing pages and Degree detail pages
 The only type of degree pages you need to manually create in your site 
 are Degree listing pages. In creating a Degree listing page, you define
