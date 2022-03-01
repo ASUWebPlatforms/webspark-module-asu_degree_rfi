@@ -85,6 +85,19 @@ class AsuDegreeRfiSettingsForm extends ConfigFormBase {
         must submit a request for each. Lastly, for most sites, using the
         configuration defaults in the form below are recommended.'),
     ];
+    $form['asu_degree_rfi']['asu_degree_rfi_rfi_settings_overrides'] = [
+      '#type' => 'item',
+      '#title' => $this->t("Recommended RFI settings overrides"),
+      '#description' => $this->t('Because you will often be syncing
+        configurations between environments, to avoid overwriting
+        an environment\'s unique RFI Source ID and submission URL, it is
+        recommended you add code to your site\'s settings.php to detect 
+        the environment and set its unique values. 
+        <a href="https://github.com/ASUWebPlatforms/webspark-module-asu_degree_rfi#readme">
+        Example code can be found in the ASU Degree RFI module\'s README.md 
+        file</a>. These overrides also include system timeout settings you
+        should apply to avoid unnecessary false-positive error emails.'),
+    ];
 
     // RFI
     $form['asu_degree_rfi']['rfi'] = array(
