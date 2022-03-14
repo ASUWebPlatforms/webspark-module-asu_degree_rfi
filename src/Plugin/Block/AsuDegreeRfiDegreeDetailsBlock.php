@@ -217,7 +217,16 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       }
     }
     if (!empty($cards)) {
-      $nextSteps->cards = $cards;
+      // Exact nextSteps card names are required. Kinda wonky that the UI 
+      // is agnostic about these, but the component cares. We also convert
+      // to class for this layer of the props here.
+      $labelled_cards = new \stdClass();
+      if (isset($cards[0])) { $labelled_cards->learnMore = $cards[0]; }
+      if (isset($cards[1])) { $labelled_cards->apply = $cards[1]; }
+      if (isset($cards[2])) { $labelled_cards->visit = $cards[2]; }
+      // Note: Will always display 3 cards. If overrides aren't found, the
+      // remaining cards will display default contentss in the order above.
+      $nextSteps->cards = $labelled_cards;
       $props['nextSteps'] = $nextSteps;
     }
 
