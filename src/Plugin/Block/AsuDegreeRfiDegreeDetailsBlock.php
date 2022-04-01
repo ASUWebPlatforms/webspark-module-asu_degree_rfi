@@ -84,11 +84,11 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       $hero->title = new \stdClass;
       $hero->title->text = $node->field_degree_detail_hero_title->value;
     }
-    if ($node->field_degree_detail_hero_highlit->value) {
+    if ($node->field_degree_detail_hero_highlight->value) {
       if (empty($hero->title)) {
         $hero->title = new \stdClass;
       }
-      $hero->title->highlightColor = $node->field_degree_detail_hero_highlit->value;
+      $hero->title->highlightColor = $node->field_degree_detail_hero_highlight->value;
     }
     if (!empty((array)$hero)) {
       $props['hero'] = $hero;
