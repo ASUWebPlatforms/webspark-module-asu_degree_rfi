@@ -48,6 +48,9 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     if ($node && !($node instanceof \Drupal\node\NodeInterface || $node->bundle() == 'degree_detail_page')) {
       return;
     }
+    if (empty($node)) {
+      return [];
+    }
 
     // Rally props to pass to JS as drupalSettings.
     $props = [];
@@ -73,7 +76,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     // Title is required in all cases for the hero. Fall back to node title if no hero title is set.
     // Component breaks if no hero title is set.
     $hero->title = new \stdClass;
-    $hero->title->text = $node->field_degree_detail_hero_title->value ?? $node->label();
+    $hero->title->text = $node->field_degree_detail_hero_title->value ?? $node->label() ?? t('No title has been set yet.');
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_detail_hero_image);
     if (!empty((array)$image)) {
       $hero->image = $image;
