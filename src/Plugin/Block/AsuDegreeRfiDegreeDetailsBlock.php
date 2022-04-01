@@ -70,6 +70,10 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
 
     //Hero
     $hero = new \stdClass;
+    // Title is required in all cases for the hero. Fall back to node title if no hero title is set.
+    // Component breaks if no hero title is set.
+    $hero->title = new \stdClass;
+    $hero->title->text = $node->field_degree_detail_hero_title->value ?? $node->label();
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_detail_hero_image);
     if (!empty((array)$image)) {
       $hero->image = $image;
@@ -80,15 +84,11 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       }
       $hero->image->size = $node->field_degree_detail_hero_size->value;
     }
-    if ($node->field_degree_detail_hero_title->value) {
-      $hero->title = new \stdClass;
-      $hero->title->text = $node->field_degree_detail_hero_title->value;
-    }
-    if ($node->field_degree_detail_hero_highlight->value) {
+    if ($node->field_degree_detail_hero_highlit->value) {
       if (empty($hero->title)) {
         $hero->title = new \stdClass;
       }
-      $hero->title->highlightColor = $node->field_degree_detail_hero_highlight->value;
+      $hero->title->highlightColor = $node->field_degree_detail_hero_highlit->value;
     }
     if (!empty((array)$hero)) {
       $props['hero'] = $hero;
