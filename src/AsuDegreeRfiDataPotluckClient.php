@@ -3,6 +3,7 @@
 namespace Drupal\asu_degree_rfi;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Http\ClientFactory;
 use \GuzzleHttp\Exception\RequestException;
 
 class AsuDegreeRfiDataPotluckClient {
@@ -15,7 +16,7 @@ class AsuDegreeRfiDataPotluckClient {
   /**
    * AsuDegreeRfiDataPotluckClient constructor.
    *
-   * @param $http_client_factory \Drupal\Core\Http\ClientFactory
+   * @param \Drupal\Core\Http\ClientFactory $http_client_factory
    */
   public function __construct($http_client_factory) {
     $this->client = $http_client_factory->fromOptions([

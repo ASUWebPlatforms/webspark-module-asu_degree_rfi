@@ -141,7 +141,8 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     $photoGrid = new \stdClass();
     foreach ($node->field_degree_list_photo_grid as $item) {
       $image = new \stdClass();
-      $image->url = file_create_url($item->entity->field_media_image->entity->getFileUri());
+      $imageUri = $item->entity->field_media_image->entity->getFileUri();
+      $image->url = \Drupal::service('file_url_generator')->generateAbsoluteString($imageUri);
       $image->altText = $item->entity->field_media_image->alt;
       $photoGrid->images[] = $image;
     }

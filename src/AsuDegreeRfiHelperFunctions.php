@@ -12,7 +12,8 @@ class AsuDegreeRfiHelperFunctions {
   public function getImageFieldValue($field) {
     $image = new \stdClass();
     if ($field->target_id && $field->entity->field_media_image->target_id) {
-      $image->url = file_create_url($field->entity->field_media_image->entity->getFileUri());
+      $imageUri = $field->entity->field_media_image->entity->getFileUri();
+      $image->url = \Drupal::service('file_url_generator')->generateAbsoluteString($imageUri);
       $image->altText = $field->entity->field_media_image->alt;
     }
     return $image;
@@ -21,7 +22,8 @@ class AsuDegreeRfiHelperFunctions {
   public function getVideoFieldValue($field) {
     $video = new \stdClass();
     if ($field->target_id && $field->entity->field_media_video_file->target_id) {
-      $video->url = file_create_url($field->entity->field_media_video_file->entity->getFileUri());
+      $vidUri = $field->entity->field_media_video_file->entity->getFileUri();
+      $video->url = \Drupal::service('file_url_generator')->generateAbsoluteString($vidUri);
       $video->altText = $field->entity->field_media_video_file->name;
     }
     return $video;
