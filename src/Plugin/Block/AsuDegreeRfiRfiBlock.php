@@ -68,10 +68,15 @@ class AsuDegreeRfiRfiBlock extends BlockBase implements ContainerFactoryPluginIn
    * AsuDegreeRfiRfiBlock constructor.
    *
    * @param array $configuration
-   * @param $plugin_id
-   * @param $plugin_definition
-   * @param $degree_search_client \Drupal\asu_degree_rfi\AsuDegreRfiDegreeSearchClient
-   * @param $data_potluck_client \Drupal\asu_degree_rfi\AsuDegreeRfiDataPotluckClient
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\asu_degree_rfi\AsuDegreeRfiDegreeSearchClient $asu_degree_rfi_degree_search_client
+   *   The ASU Degree RFI Degree Search Client.
+   * @param \Drupal\asu_degree_rfi\AsuDegreeRfiDataPotluckClient $asu_degree_rfi_data_potluck_client
+   *   The ASU Degree RFI Data Potluck Client.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $asu_degree_rfi_degree_search_client = null, $asu_degree_rfi_data_potluck_client = null) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

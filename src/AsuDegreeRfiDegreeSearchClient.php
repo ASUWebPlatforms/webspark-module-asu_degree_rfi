@@ -15,7 +15,7 @@ class AsuDegreeRfiDegreeSearchClient {
   /**
    * AsuDegreeRfiDegreeSearchClient constructor.
    *
-   * @param $http_client_factory \Drupal\Core\Http\ClientFactory
+   * @param \Drupal\Core\Http\ClientFactory $http_client_factory
    */
   public function __construct($http_client_factory) {
     $this->client = $http_client_factory->fromOptions([
@@ -32,15 +32,11 @@ class AsuDegreeRfiDegreeSearchClient {
    * Methods: findAllDegrees, findDegreeByAcadPlan, findDegreeByCollege
    *   Note: not all methods have been tested. degreeQuery() may require work.
    *
-   * @param string $program
-   * @param string $cert
-   * @param string $method
-   * @param string $fields
-   * @param string $init
+   * @param array $params
    *
    * @return array
    */
-  public function degreeQuery($params) {
+  public function degreeQuery(array $params) {
 
     $output = null;
     try {
@@ -155,11 +151,11 @@ class AsuDegreeRfiDegreeSearchClient {
   /**
    * Get degree by AcadPlan.
    *
-   * @param string $program
+   * @param string $acad_plan_code
    *
    * @return boolean
    */
-  public function getDegreeByAcadPlan($acad_plan_code) {
+  public function getDegreeByAcadPlan(string $acad_plan_code) {
 
     $response = $this->degreeQuery(
       [

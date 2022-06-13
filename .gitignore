@@ -26,3 +26,5 @@ node_modules/@asu-design-system/app-rfi/dist/*
 node_modules/@asu-design-system/app-rfi/.npm/_logs/
 
 /vendor/
+
+.idea
