@@ -134,6 +134,8 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $breadcrumbs[] = (object) [
       'text' => 'Detail Page',
       'isActive' => true,
+      // WS2-1036 - Add active link for current page
+      'url' => Url::fromRoute('<current>')->toString(),
     ];
     $introContent->breadcrumbs = $breadcrumbs;
 
