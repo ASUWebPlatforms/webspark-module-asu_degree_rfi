@@ -307,6 +307,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       'changeMajorRequirements' => 'field_deg_dtl_hide_chg_major',
       'exampleCareers' => 'field_deg_dtl_hide_example_crs',
       'flexibleDegreeOptions' => 'field_deg_dtl_hide_flex_options',
+      'whyChooseAsu' => 'field_deg_dtl_hide_why_choos_asu',
     ];
     foreach ($hide_fields as $key => $hide_field) {
       if ($node->{$hide_field}) {
