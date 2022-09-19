@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.degree_detail_page.field_deg_dtl_hide_example_crs
     - field.field.node.degree_detail_page.field_deg_dtl_hide_flex_options
     - field.field.node.degree_detail_page.field_deg_dtl_hide_global_opp
+    - field.field.node.degree_detail_page.field_deg_dtl_hide_why_choos_asu
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_market
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_pgmdesc
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_req_crs
@@ -46,20 +47,30 @@ dependencies:
     - field.field.node.degree_detail_page.field_degree_dtl_intro_content
     - field.field.node.degree_detail_page.layout_builder__layout
     - node.type.degree_detail_page
+  module:
+    - user
   enforced:
     module:
       - asu_degree_rfi
-  module:
-    - user
 id: node.degree_detail_page.teaser
 targetEntityType: node
 bundle: degree_detail_page
 mode: teaser
 content:
+  field_deg_dtl_hide_why_choos_asu:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 40
+    region: content
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   field_deg_dtl_anchor_addl_anchor: true
