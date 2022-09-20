@@ -22,6 +22,7 @@ dependencies:
     - field.field.node.degree_detail_page.field_deg_dtl_hide_example_crs
     - field.field.node.degree_detail_page.field_deg_dtl_hide_flex_options
     - field.field.node.degree_detail_page.field_deg_dtl_hide_global_opp
+    - field.field.node.degree_detail_page.field_deg_dtl_hide_why_choos_asu
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_market
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_pgmdesc
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_req_crs
@@ -45,15 +46,15 @@ dependencies:
     - field.field.node.degree_detail_page.field_degree_dtl_intro_content
     - field.field.node.degree_detail_page.layout_builder__layout
     - node.type.degree_detail_page
-  enforced:
-    module:
-      - asu_degree_rfi
   module:
     - field_group
     - link
     - media_library
     - paragraphs
     - text
+  enforced:
+    module:
+      - asu_degree_rfi
 third_party_settings:
   field_group:
     group_degree_detail_intro_contnt:
@@ -61,16 +62,16 @@ third_party_settings:
         - field_degree_detail_breadcrumbs
         - field_degree_detail_intro_media
         - field_degree_dtl_intro_content
-      parent_name: ''
-      weight: 9
-      format_type: fieldset
+      label: 'Intro content'
       region: content
+      parent_name: ''
+      weight: 8
+      format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Intro content'
     group_degree_detail_glance:
       children:
         - field_degree_detail_offered_by
@@ -78,46 +79,46 @@ third_party_settings:
         - field_degree_detail_first_math
         - field_degree_detail_math_intense
         - field_degree_detail_time_commit
-      parent_name: ''
-      weight: 10
-      format_type: fieldset
+      label: 'At a glance'
       region: content
+      parent_name: ''
+      weight: 9
+      format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'At a glance'
     group_degree_detail_pgm_contact:
       children:
         - field_degree_detail_pgm_dept_url
         - field_degree_detail_email_link
-      parent_name: ''
-      weight: 14
-      format_type: fieldset
+      label: 'Program contact info'
       region: content
+      parent_name: ''
+      weight: 13
+      format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Program contact info'
     group_degree_detail_hero:
       children:
         - field_degree_detail_hero_image
         - field_degree_detail_hero_size
         - field_degree_detail_hero_title
         - field_degree_detail_hero_highlit
-      parent_name: ''
-      weight: 8
-      format_type: fieldset
+      label: Hero
       region: content
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: Hero
     group_degree_detail_anchor_menu:
       children:
         - field_deg_dtl_anchor_glance
@@ -132,16 +133,16 @@ third_party_settings:
         - field_deg_dtl_anchor_online
         - field_deg_dtl_anchor_pgm_contact
         - field_deg_dtl_anchor_addl_anchor
-      parent_name: ''
-      weight: 16
-      format_type: fieldset
+      label: 'Anchor menu'
       region: content
+      parent_name: ''
+      weight: 15
+      format_type: fieldset
       format_settings:
-        id: ''
         classes: ''
+        id: ''
         description: ''
         required_fields: true
-      label: 'Anchor menu'
 id: node.degree_detail_page.default
 targetEntityType: node
 bundle: degree_detail_page
@@ -154,209 +155,213 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_deg_dtl_anchor_addl_anchor:
+    type: link_default
     weight: 29
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_deg_dtl_anchor_afford_col:
+    type: boolean_checkbox
     weight: 21
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_app_reqs:
+    type: boolean_checkbox
     weight: 18
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_change_mjr:
+    type: boolean_checkbox
     weight: 19
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_customize:
+    type: boolean_checkbox
     weight: 25
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_example_crs:
+    type: boolean_checkbox
     weight: 24
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_glance:
+    type: boolean_checkbox
     weight: 17
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_global_opp:
+    type: boolean_checkbox
     weight: 26
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_next_steps:
+    type: boolean_checkbox
     weight: 20
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_online:
+    type: boolean_checkbox
     weight: 27
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_outlook:
+    type: boolean_checkbox
     weight: 23
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_anchor_pgm_contact:
+    type: boolean_checkbox
     weight: 28
+    region: content
     settings:
       display_label: true
     third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
   field_deg_dtl_attend_online_img:
     type: media_library_widget
-    weight: 13
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_deg_dtl_hide_affording:
-    weight: 22
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_app_reqs:
-    weight: 20
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_attend_online:
-    weight: 26
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_chg_major:
-    weight: 21
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_example_crs:
-    weight: 24
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_flex_options:
-    weight: 23
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_hide_global_opp:
-    weight: 25
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_intro_hide_market:
-    weight: 17
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_intro_hide_pgmdesc:
-    weight: 18
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_deg_dtl_intro_hide_req_crs:
-    weight: 19
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_degree_detail_acadplancode:
-    weight: 7
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_degree_detail_breadcrumbs:
-    weight: 21
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_degree_detail_email_link:
-    weight: 14
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_degree_detail_first_math:
-    weight: 11
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
-  field_degree_detail_global_opp:
-    type: media_library_widget
     weight: 12
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
+  field_deg_dtl_hide_affording:
+    type: boolean_checkbox
+    weight: 21
     region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_app_reqs:
+    type: boolean_checkbox
+    weight: 19
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_attend_online:
+    type: boolean_checkbox
+    weight: 26
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_chg_major:
+    type: boolean_checkbox
+    weight: 20
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_example_crs:
+    type: boolean_checkbox
+    weight: 23
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_flex_options:
+    type: boolean_checkbox
+    weight: 22
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_global_opp:
+    type: boolean_checkbox
+    weight: 24
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_hide_why_choos_asu:
+    type: boolean_checkbox
+    weight: 25
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_intro_hide_market:
+    type: boolean_checkbox
+    weight: 16
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_intro_hide_pgmdesc:
+    type: boolean_checkbox
+    weight: 17
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_intro_hide_req_crs:
+    type: boolean_checkbox
+    weight: 18
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_degree_detail_acadplancode:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_degree_detail_breadcrumbs:
+    type: link_default
+    weight: 21
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_degree_detail_email_link:
+    type: string_textfield
+    weight: 14
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_degree_detail_first_math:
+    type: string_textfield
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_degree_detail_global_opp:
+    type: media_library_widget
+    weight: 11
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
   field_degree_detail_hero_highlit:
     type: options_select
     weight: 29
@@ -368,10 +373,7 @@ content:
     weight: 26
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      media_types: {  }
     third_party_settings: {  }
   field_degree_detail_hero_size:
     type: options_select
@@ -390,29 +392,30 @@ content:
   field_degree_detail_intro_media:
     type: media_library_widget
     weight: 22
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    region: content
   field_degree_detail_locations:
+    type: link_default
     weight: 10
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_degree_detail_math_intense:
+    type: string_textfield
     weight: 12
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_degree_detail_nxtsteps:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 14
+    region: content
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -421,66 +424,65 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
   field_degree_detail_offered_by:
+    type: link_default
     weight: 9
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
-    region: content
   field_degree_detail_outlook_img:
     type: media_library_widget
-    weight: 11
+    weight: 10
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    region: content
   field_degree_detail_pgm_dept_url:
+    type: string_textfield
     weight: 13
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_degree_detail_time_commit:
+    type: string_textfield
     weight: 13
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_degree_dtl_intro_content:
+    type: text_textarea
     weight: 23
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 3
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
+    weight: 5
+    region: content
     settings:
       display_label: true
-    weight: 6
-    region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 4
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -493,12 +495,17 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 1
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
+    third_party_settings: {  }
+  url_redirects:
+    weight: 27
     region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   layout_builder__layout: true
