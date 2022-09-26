@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@asu-design-system/app-degree-pages@1.18.0":
-  version "1.18.0"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-degree-pages/-/app-degree-pages-1.18.0.tgz#773f47b702c388b389d53d18c3cf9e337504c51a"
-  integrity sha512-flK8LCzxWaRE/GFrIQoBy99m9EaRXZ7hgIyxZYziFSsMj42P1kNDswg/y+hw+9DIrE2TJ7F3Nf8ISFaWQkv0Kg==
+"@asu-design-system/app-degree-pages@1.19.3":
+  version "1.19.3"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-degree-pages/-/app-degree-pages-1.19.3.tgz#8cde176a58463568d87161eaeaee7016d3e50129"
+  integrity sha512-jLPt3b49aH4JGuq/jct06ldieLXPfm8Taruew4a6ntAKjyu6F9jMqHq1JJqGqYK/JfJG/OzBDne3fi9YSivX6w==
   dependencies:
     "@asu-design-system/components-core" "^1.25.2"
     "@asu-design-system/design-tokens" "^1.1.0"
@@ -18,10 +18,10 @@
     react-tooltip "^4.2.21"
     styled-components "^5.3.0"
 
-"@asu-design-system/app-rfi@1.6.0":
-  version "1.6.0"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-rfi/-/app-rfi-1.6.0.tgz#7f3af6ef7ea2d3182b335efb3c72e8e5c12d415b"
-  integrity sha512-n1kIvr9tABmEsWB5RtMy3K2pMur2plvZ3sWfqOsBSaqOVwdP7LCO6exP2Pwgr0cVWDi9bQSDgFDSHd+BWZRNBQ==
+"@asu-design-system/app-rfi@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-rfi/-/app-rfi-1.7.0.tgz#f445483ebccbaa21798b555a70a07e97b6812379"
+  integrity sha512-aw34Iz/lLBj5yZfhVPj8tVteKnMdX6aBqUDuq31MIhml4ckGT5Mny0YY9xQl4S5EICiTZmDBVE8g/G1XiID6nw==
   dependencies:
     "@asu-design-system/components-core" "^1.25.2"
     formik "^2.1.4"
