@@ -11,7 +11,7 @@ id: node.degree_detail_page.field_deg_dtl_intro_hide_market
 field_name: field_deg_dtl_intro_hide_market
 entity_type: node
 bundle: degree_detail_page
-label: 'Hide market text'
+label: 'Hide market text (includes custom Intro content)'
 description: ''
 required: false
 translatable: false
