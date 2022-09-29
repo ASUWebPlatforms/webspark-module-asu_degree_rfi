@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@asu-design-system/app-degree-pages@1.19.5":
-  version "1.19.5"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-degree-pages/-/app-degree-pages-1.19.5.tgz#16dca335ba553ca1b5f61275a3721e47f8a1619d"
-  integrity sha512-k/VCVv97uhb+Dfur549WgynWnAbiD8FElM7+DG3+Z1BaLmshxfbOJWDFdyLVyVKRbYIQAsh5SNgfN8/yhSgY6g==
+"@asu-design-system/app-degree-pages@1.19.6":
+  version "1.19.6"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-degree-pages/-/app-degree-pages-1.19.6.tgz#da8e24d713599f16512dfbc508f669b61da6d688"
+  integrity sha512-+0248hIHjsLaACvGpg4AJZ7ECruhpT27OXIBLdWwvNMo5eOhJuoq9PUS7kCuhqgKVFXjugf7AHIVF0nbkjuLKw==
   dependencies:
     "@asu-design-system/components-core" "^1.25.2"
     "@asu-design-system/design-tokens" "^1.1.0"
