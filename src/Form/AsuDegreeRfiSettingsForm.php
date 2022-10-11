@@ -114,11 +114,11 @@ class AsuDegreeRfiSettingsForm extends ConfigFormBase {
     $form['asu_degree_rfi']['rfi']['rfi_submission_handler_url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('RFI submission handler URL'),
-      '#default_value' => $config->get('asu_degree_rfi.rfi_submission_handler_url') ? $config->get('asu_degree_rfi.rfi_submission_handler_url') : "https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/",
+      '#default_value' => $config->get('asu_degree_rfi.rfi_submission_handler_url') ? $config->get('asu_degree_rfi.rfi_submission_handler_url') : "https://5gu33wnsdm2mpgmob4c2rt3mbq0mngfo.lambda-url.us-west-2.on.aws/",
       '#description' => $this->t("You shouldn't need to change this. For reference, environments:<br>
-         https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/<br>
-         https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/<br>
-         https://crm-enterprise-rfi-forms-submit-handler-sandbox.sdc.uto.asu.edu/"),
+         Production: https://5gu33wnsdm2mpgmob4c2rt3mbq0mngfo.lambda-url.us-west-2.on.aws/<br>
+         Dev/Test: https://eakemwmmmpql5o523dnfkvvtem0ezhhc.lambda-url.us-west-2.on.aws/<br>
+         Sandbox: https://3ceccsb54wpba5wrdg6kgxmlv40obcjl.lambda-url.us-west-2.on.aws/"),
       '#required' => TRUE,
     ];
     $form['asu_degree_rfi']['rfi']['rfi_degree_search_datasource_endpoint'] = [

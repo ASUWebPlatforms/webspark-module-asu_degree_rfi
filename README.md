@@ -34,17 +34,17 @@ if (defined('PANTHEON_ENVIRONMENT')) {
   if (PANTHEON_ENVIRONMENT == 'dev') {
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
-      'https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/';
+      'https://eakemwmmmpql5o523dnfkvvtem0ezhhc.lambda-url.us-west-2.on.aws/';
   }
   else if (PANTHEON_ENVIRONMENT == 'test') {
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
-      'https://crm-enterprise-rfi-forms-submit-handler-dev.apps.asu.edu/';
+      'https://eakemwmmmpql5o523dnfkvvtem0ezhhc.lambda-url.us-west-2.on.aws/';
   }
   else if (PANTHEON_ENVIRONMENT == 'live') {
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_source_id'] = '<environsSourceIDHere>';
     $config['asu_degree_rfi.settings']['asu_degree_rfi']['rfi_submission_handler_url'] = 
-      'https://crm-enterprise-rfi-forms-submit-handler-prod.apps.asu.edu/';
+      'https://5gu33wnsdm2mpgmob4c2rt3mbq0mngfo.lambda-url.us-west-2.on.aws/';
   }
 }
 // Increase max_execution_time for RFI to wait for response.
