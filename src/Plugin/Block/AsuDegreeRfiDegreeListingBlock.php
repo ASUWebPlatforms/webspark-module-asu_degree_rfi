@@ -67,7 +67,8 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     }
 
     $program = $node->field_degree_list_program->value;
-    $blacklist = array_map('trim', explode(",", $node->field_exclude_from_display->value));
+    $exclude_value = $node->field_exclude_from_display->value;
+    $blacklist = isset($exclude_value) ? array_map('trim', explode(",", $exclude_value)) : NULL;
     $certs_minors = $node->field_degree_list_certs_minors->value;
     $certs_minors_str = ($certs_minors) ? 'true' : 'false';
     $base_url = '';
