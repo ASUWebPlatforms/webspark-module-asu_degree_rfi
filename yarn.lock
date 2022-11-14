@@ -18,10 +18,10 @@
     react-tooltip "^4.2.21"
     styled-components "^5.3.0"
 
-"@asu-design-system/app-rfi@1.7.0":
-  version "1.7.0"
-  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-rfi/-/app-rfi-1.7.0.tgz#f445483ebccbaa21798b555a70a07e97b6812379"
-  integrity sha512-aw34Iz/lLBj5yZfhVPj8tVteKnMdX6aBqUDuq31MIhml4ckGT5Mny0YY9xQl4S5EICiTZmDBVE8g/G1XiID6nw==
+"@asu-design-system/app-rfi@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.web.asu.edu/@asu-design-system%2fapp-rfi/-/app-rfi-1.8.0.tgz#70193589c745d70f7bef1cf25251d7df8dbd9347"
+  integrity sha512-7KDUQUPz5FJTEA9+eF76dUVBtT6AzdruQ5OuF7e3VohGcOe8DZDZ+aodkE2kI9aLZAAgvB7WLq5nWsWBmPtZ5A==
   dependencies:
     "@asu-design-system/components-core" "^1.25.2"
     formik "^2.1.4"
