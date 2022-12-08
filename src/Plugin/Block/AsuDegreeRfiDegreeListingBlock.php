@@ -239,6 +239,10 @@ class AsuDegreeRfiDegreeListingBlock extends BlockBase {
     if ($node->field_degree_list_dept_code->value) {
       $programList->dataSource->departmentCode = $node->field_degree_list_dept_code->value;
     }
+
+    if ($node->field_degree_degrees_per_page->value) {
+      $props['degreesPerPage'] = $node->field_degree_degrees_per_page->value;
+    }
     $props['programList'] = $programList;
 
     $block_output = [];
