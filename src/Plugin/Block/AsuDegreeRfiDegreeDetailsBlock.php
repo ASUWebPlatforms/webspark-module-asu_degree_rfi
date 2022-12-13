@@ -58,7 +58,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     //Default images.
     $props['appPathFolder'] = \Drupal::service('asu_degree_rfi.helper_functions')->getappPathFolder('app-degree-pages');
 
-    $dataSource = new \stdClass();
+    $dataSource = new \stdClass;
     if ($global_config->get('asu_degree_rfi.program_detail_datasource_endpoint')) {
       $dataSource->endpoint = $global_config->get('asu_degree_rfi.program_detail_datasource_endpoint');
     }
@@ -98,11 +98,11 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     }
 
     //Intro Content
-    $introContent = new \stdClass();
+    $introContent = new \stdClass;
 
     $breadcrumbs = [];
     foreach ($node->field_degree_detail_breadcrumbs as $breadcrumbs_link) {
-      $item_breadcrumbs = new \stdClass();
+      $item_breadcrumbs = new \stdClass;
       $item_breadcrumbs->text = $breadcrumbs_link->title;
       $link = Url::fromUri($breadcrumbs_link->uri);
       $item_breadcrumbs->url = $link->toString();
@@ -190,7 +190,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
 
     $locations = [];
     foreach ($node->field_degree_detail_locations as $location_link) {
-      $itemLink = new \stdClass();
+      $itemLink = new \stdClass;
       $itemLink->text = $location_link->title;
       $link = Url::fromUri($location_link->uri);
       $itemLink->url = $link->toString();
@@ -211,30 +211,83 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $props['atAGlance'] = $atAGlance;
 
     //nextSteps
-    $nextSteps = new \stdClass();
+    $nextSteps = new \stdClass;
     $cards = [];
-    foreach ($node->field_degree_detail_nxtsteps  as $paragraph_ref) {
-      $card = \Drupal::service('asu_degree_rfi.helper_functions')->getNxtStepsContent($paragraph_ref->entity);
+    foreach ($node->field_degree_detail_nxtsteps as $paragraph_ref) {
+      $card = \Drupal::service('asu_degree_rfi.helper_functions')->getParagraphsContent($paragraph_ref->entity);
       if (!empty((array)$card)) {
         $cards[] = $card;
       }
     }
     if (!empty($cards)) {
-      // Exact nextSteps card names are required. Kinda wonky that the UI 
+      // Exact nextSteps card names are required. Kinda wonky that the UI
       // is agnostic about these, but the component cares. We also convert
       // to class for this layer of the props here.
-      $labelled_cards = new \stdClass();
+      $labelled_cards = new \stdClass;
       if (isset($cards[0])) { $labelled_cards->learnMore = $cards[0]; }
       if (isset($cards[1])) { $labelled_cards->apply = $cards[1]; }
       if (isset($cards[2])) { $labelled_cards->visit = $cards[2]; }
       // Note: Will always display 3 cards. If overrides aren't found, the
-      // remaining cards will display default contentss in the order above.
+      // remaining cards will display default contents in the order above.
       $nextSteps->cards = $labelled_cards;
       $props['nextSteps'] = $nextSteps;
     }
 
+    //whyChooseASU (WCA)
+    $whyChooseAsu = new \stdClass;
+    $cards = [];
+    $why_choose = 0;
+    ////- Intro
+    if (isset($node->field_deg_dtl_why_choose_intro->value) && !empty($node->field_deg_dtl_why_choose_intro->value)) {
+      $whyChooseAsu->sectionIntroText = $node->field_deg_dtl_why_choose_intro->value;
+      $why_choose = 1;
+    }
+    ////- Top Row
+    foreach ($node->field_deg_dtl_why_choose_1 as $paragraph_ref) {
+      $card = \Drupal::service('asu_degree_rfi.helper_functions')->getParagraphsContent($paragraph_ref->entity, "whyChooseAsu");
+      if (!empty((array)$card)) {
+        $cards[] = $card;
+      }
+    }
+    $labelled_cards = new \stdClass;
+    if (!empty($cards)) {
+      if (isset($cards[0])) {
+        $labelled_cards->faculty = $cards[0];
+        $why_choose = 2;
+      }
+      if (isset($cards[1])) { $labelled_cards->programs = $cards[1]; }
+      if (isset($cards[2])) { $labelled_cards->research = $cards[2]; }
+    }
+    ////- Bottom Row
+    $cards = []; // Reset
+    foreach ($node->field_deg_dtl_why_choose_2 as $paragraph_ref) {
+      $card = \Drupal::service('asu_degree_rfi.helper_functions')->getParagraphsContent($paragraph_ref->entity, "whyChooseAsu");
+      if (!empty((array)$card)) {
+        $cards[] = $card;
+      }
+    }
+    if (!empty($cards)) {
+      if (isset($cards[0])) {
+        $labelled_cards->inclusion = $cards[0];
+        $why_choose = 2;
+      }
+      if (isset($cards[1])) { $labelled_cards->mentors = $cards[1]; }
+      if (isset($cards[2])) { $labelled_cards->honors = $cards[2]; }
+    }
+    //// hide whyChooseAsu?
+    if ($node->field_deg_dtl_hide_why_choos_asu->value) {
+      $whyChooseAsu->hide = (bool) $node->field_deg_dtl_hide_why_choos_asu->value;
+    }
+
+    if ($why_choose > 0) {
+      if ($why_choose > 1) { // Add properties + hide boolean
+        $whyChooseAsu->cards = $labelled_cards;
+      }
+      $props['whyChooseAsu'] = $whyChooseAsu;
+    }
+
     //careerOutlook
-    $careerOutlook = new \stdClass();
+    $careerOutlook = new \stdClass;
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_degree_detail_outlook_img);
     if (!empty((array)$image)) {
       $careerOutlook->image = $image;
@@ -242,7 +295,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     }
 
     //globalOpportunity
-    $globalOpportunity = new \stdClass();
+    $globalOpportunity = new \stdClass;
     if ($node->field_deg_dtl_hide_global_opp->value) {
       $globalOpportunity->hide = (bool) $node->field_deg_dtl_hide_global_opp->value;
     }
@@ -252,11 +305,10 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     }
     $props['globalOpportunity'] = $globalOpportunity;
 
-
     //attendOnline
-    $attendOnline = new \stdClass();
+    $attendOnline = new \stdClass;
     if ($node->field_deg_dtl_hide_attend_online->value) {
-      $attendOnline->hide = (bool) $node->field_deg_dtl_hide_attend_online->value;
+      $attendOnline->hide = (bool)$node->field_deg_dtl_hide_attend_online->value;
     }
     $image = \Drupal::service('asu_degree_rfi.helper_functions')->getImageFieldValue($node->field_deg_dtl_attend_online_img);
     if (!empty((array)$image)) {
@@ -278,7 +330,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       'programContactInfo' => 'field_deg_dtl_anchor_pgm_contact',
       'nextSteps' => 'field_deg_dtl_anchor_next_steps',
     ];
-    $anchorMenu  = new \stdClass();
+    $anchorMenu  = new \stdClass;
     foreach ($anchor_menu_fields as $key => $field) {
       if ($node->{$field}) {
         $anchorMenu->{$key} = (bool) $node->{$field}->value;
@@ -301,13 +353,13 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
 
     $props['anchorMenu'] = $anchorMenu;
 
+    // other hiding fields
     $hide_fields = [
       'affordingCollege' => 'field_deg_dtl_hide_affording',
       'applicationRequirements' => 'field_deg_dtl_hide_app_reqs',
       'changeMajorRequirements' => 'field_deg_dtl_hide_chg_major',
       'exampleCareers' => 'field_deg_dtl_hide_example_crs',
       'flexibleDegreeOptions' => 'field_deg_dtl_hide_flex_options',
-      'whyChooseAsu' => 'field_deg_dtl_hide_why_choos_asu',
     ];
     foreach ($hide_fields as $key => $hide_field) {
       if ($node->{$hide_field}) {
@@ -318,7 +370,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     }
 
     //programContactInfo
-    $programContactInfo = new \stdClass();
+    $programContactInfo = new \stdClass;
     if ($node->field_degree_detail_pgm_dept_url->value) {
       $programContactInfo->departmentUrl = $node->field_degree_detail_pgm_dept_url->value;
     }

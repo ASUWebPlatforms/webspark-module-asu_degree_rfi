@@ -26,6 +26,9 @@ dependencies:
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_market
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_pgmdesc
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_req_crs
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_1
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_2
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_intro
     - field.field.node.degree_detail_page.field_degree_detail_acadplancode
     - field.field.node.degree_detail_page.field_degree_detail_breadcrumbs
     - field.field.node.degree_detail_page.field_degree_detail_email_link
@@ -96,7 +99,7 @@ third_party_settings:
       label: 'Program contact info'
       region: content
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         classes: ''
@@ -136,12 +139,52 @@ third_party_settings:
       label: 'Anchor menu'
       region: content
       parent_name: ''
-      weight: 15
+      weight: 16
       format_type: fieldset
       format_settings:
         classes: ''
         id: ''
         description: ''
+        required_fields: true
+    group_hide_degree_fields:
+      children:
+        - field_deg_dtl_intro_hide_market
+        - field_deg_dtl_intro_hide_pgmdesc
+        - field_deg_dtl_intro_hide_req_crs
+        - field_deg_dtl_hide_app_reqs
+        - field_deg_dtl_hide_chg_major
+        - field_deg_dtl_hide_affording
+        - field_deg_dtl_hide_flex_options
+        - field_deg_dtl_hide_example_crs
+        - field_deg_dtl_hide_global_opp
+        - field_deg_dtl_hide_why_choos_asu
+        - field_deg_dtl_hide_attend_online
+      label: 'Hide Degree Fields'
+      region: content
+      parent_name: ''
+      weight: 17
+      format_type: fieldset
+      format_settings:
+        classes: hide-degree-fields
+        show_empty_fields: true
+        id: ''
+        description: 'Select fields to not display on individual degree detail pages.'
+        required_fields: true
+    group_degrees_why_choose_asu:
+      children:
+        - field_deg_dtl_why_choose_intro
+        - field_deg_dtl_why_choose_1
+        - field_deg_dtl_why_choose_2
+      label: 'Why Choose ASU'
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: true
+        id: ''
+        description: 'The following fields allow content creators to override the default "Why Choose ASU?" content as contained in the ASU Web standards'' Degree Detail pages.'
         required_fields: true
 id: node.degree_detail_page.default
 targetEntityType: node
@@ -156,7 +199,7 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_addl_anchor:
     type: link_default
-    weight: 29
+    weight: 28
     region: content
     settings:
       placeholder_url: ''
@@ -185,14 +228,14 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_customize:
     type: boolean_checkbox
-    weight: 25
+    weight: 24
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_anchor_example_crs:
     type: boolean_checkbox
-    weight: 24
+    weight: 23
     region: content
     settings:
       display_label: true
@@ -206,7 +249,7 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_global_opp:
     type: boolean_checkbox
-    weight: 26
+    weight: 25
     region: content
     settings:
       display_label: true
@@ -220,108 +263,140 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_online:
     type: boolean_checkbox
-    weight: 27
+    weight: 26
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_anchor_outlook:
     type: boolean_checkbox
-    weight: 23
+    weight: 22
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_anchor_pgm_contact:
     type: boolean_checkbox
-    weight: 28
+    weight: 27
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_attend_online_img:
     type: media_library_widget
-    weight: 12
+    weight: 13
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_deg_dtl_hide_affording:
     type: boolean_checkbox
-    weight: 21
+    weight: 23
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_app_reqs:
     type: boolean_checkbox
-    weight: 19
+    weight: 21
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_attend_online:
     type: boolean_checkbox
-    weight: 26
+    weight: 28
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_chg_major:
     type: boolean_checkbox
-    weight: 20
+    weight: 22
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_example_crs:
     type: boolean_checkbox
-    weight: 23
+    weight: 25
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_flex_options:
     type: boolean_checkbox
-    weight: 22
+    weight: 24
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_global_opp:
     type: boolean_checkbox
-    weight: 24
+    weight: 26
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_why_choos_asu:
     type: boolean_checkbox
-    weight: 25
+    weight: 27
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_intro_hide_market:
     type: boolean_checkbox
-    weight: 16
+    weight: 18
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_intro_hide_pgmdesc:
     type: boolean_checkbox
-    weight: 17
+    weight: 19
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_intro_hide_req_crs:
     type: boolean_checkbox
-    weight: 18
+    weight: 20
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_deg_dtl_why_choose_1:
+    type: entity_reference_paragraphs
+    weight: 1
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_deg_dtl_why_choose_2:
+    type: entity_reference_paragraphs
+    weight: 2
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_deg_dtl_why_choose_intro:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_degree_detail_acadplancode:
     type: string_textfield
@@ -414,7 +489,7 @@ content:
     third_party_settings: {  }
   field_degree_detail_nxtsteps:
     type: entity_reference_paragraphs
-    weight: 14
+    weight: 15
     region: content
     settings:
       title: Paragraph
@@ -503,7 +578,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   url_redirects:
-    weight: 27
+    weight: 19
     region: content
     settings: {  }
     third_party_settings: {  }
