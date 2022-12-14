@@ -38,35 +38,55 @@ class AsuDegreeRfiHelperFunctions {
     return $video;
   }
 
-  public function getNxtStepsContent($paragraph) {
+  public function getParagraphsContent($paragraph, $field = "nextSteps") {
     if (empty($paragraph)) {
       return;
     }
     $card = new \stdClass();
 
-    if (isset($paragraph->field_degree_nxtsteps_card_icon) && $paragraph->field_degree_nxtsteps_card_icon->icon_name) {
-      $icon_name = $paragraph->field_degree_nxtsteps_card_icon->icon_name;
-      $icon_style = $paragraph->field_degree_nxtsteps_card_icon->style;
-      $card->icon = [$icon_style, $icon_name];
-    }
+    // shared fields
     if ($paragraph->field_degree_nxtsteps_card_title->value) {
       $card->title = $paragraph->field_degree_nxtsteps_card_title->value;
     }
+    // Partially shared fields
+    switch ($field) {
+      case "whyChooseAsu":
+        // whyChooseAsu - top image
+        $image = new \stdClass();
+        if (isset($paragraph->field_deg_dtl_why_card_image->target_id)) {
+          $wca_image = $paragraph->field_deg_dtl_why_card_image->entity;
+          $imageUri = $wca_image->getFileUri();
+          $image->url = \Drupal::service('file_url_generator')->generateAbsoluteString($imageUri);
+          $image->altText = $paragraph->field_deg_dtl_why_card_image->alt;
+          $card->image = $image;
+        }
+        // Varying props names?
+        $content = "text";
+        $button = "button";
+        break;
+      default:
+        $content = "content";
+        $button = "buttonLink";
+        // nextSteps - top icon
+        if (isset($paragraph->field_degree_nxtsteps_card_icon) && $paragraph->field_degree_nxtsteps_card_icon->icon_name) {
+          $icon_name = $paragraph->field_degree_nxtsteps_card_icon->icon_name;
+          $icon_style = $paragraph->field_degree_nxtsteps_card_icon->style;
+          $card->icon = [$icon_style, $icon_name];
+        }
+        break;
+    }
     if ($paragraph->field_degree_nxtstep_card_contnt->value) {
-      $card->content = $paragraph->field_degree_nxtstep_card_contnt->value;
+      $card->{$content} = $paragraph->field_degree_nxtstep_card_contnt->value;
     }
     $buttonLink = new \stdClass();
     if ($paragraph->field_degree_nxtsteps_card_btn && $paragraph->field_degree_nxtsteps_card_btn->title && $paragraph->field_degree_nxtsteps_card_btn->uri) {
       $buttonLink->label = $paragraph->field_degree_nxtsteps_card_btn->title;
       $link = Url::fromUri($paragraph->field_degree_nxtsteps_card_btn->uri);
       $buttonLink->href = $link->toString();
-      if ($paragraph->field_degree_nxtsteps_btn_color->value) {
-        $buttonLink->color = $paragraph->field_degree_nxtsteps_btn_color->value;
-      }
+      $buttonLink->color = ($paragraph->field_degree_nxtsteps_btn_color->value) ?? "maroon";
     }
-
     if (!empty((array)$buttonLink)) {
-      $card->buttonLink = $buttonLink;
+      $card->{$button} = $buttonLink;
     }
     return $card;
   }
