@@ -184,7 +184,7 @@ third_party_settings:
         classes: ''
         show_empty_fields: true
         id: ''
-        description: 'The following fields allow content creators to override the default "Why Choose ASU?" content as contained in the ASU Web standards'' Degree Detail pages.'
+        description: 'The following fields allow content creators to override the default "Why Choose ASU?" content as contained in the ASU Web standards Degree Detail pages.'
         required_fields: true
 id: node.degree_detail_page.default
 targetEntityType: node
