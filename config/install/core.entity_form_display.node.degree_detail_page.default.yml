@@ -99,7 +99,7 @@ third_party_settings:
       label: 'Program contact info'
       region: content
       parent_name: ''
-      weight: 14
+      weight: 15
       format_type: fieldset
       format_settings:
         classes: ''
@@ -178,13 +178,27 @@ third_party_settings:
       label: 'Why Choose ASU'
       region: content
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         classes: ''
         show_empty_fields: true
         id: ''
         description: 'The following fields allow content creators to override the default "Why Choose ASU?" content as contained in the ASU Web standards Degree Detail pages.'
+        required_fields: true
+    group_degrees_next_steps:
+      children:
+        - field_degree_detail_nxtsteps
+      label: 'Next Steps'
+      region: content
+      parent_name: ''
+      weight: 12
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        description: 'Override the default Next Steps.'
         required_fields: true
 id: node.degree_detail_page.default
 targetEntityType: node
@@ -199,7 +213,7 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_addl_anchor:
     type: link_default
-    weight: 28
+    weight: 29
     region: content
     settings:
       placeholder_url: ''
@@ -277,21 +291,21 @@ content:
     third_party_settings: {  }
   field_deg_dtl_anchor_pgm_contact:
     type: boolean_checkbox
-    weight: 27
+    weight: 28
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_attend_online_img:
     type: media_library_widget
-    weight: 13
+    weight: 14
     region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
   field_deg_dtl_hide_affording:
     type: boolean_checkbox
-    weight: 23
+    weight: 24
     region: content
     settings:
       display_label: true
@@ -305,7 +319,7 @@ content:
     third_party_settings: {  }
   field_deg_dtl_hide_attend_online:
     type: boolean_checkbox
-    weight: 28
+    weight: 29
     region: content
     settings:
       display_label: true
@@ -319,28 +333,28 @@ content:
     third_party_settings: {  }
   field_deg_dtl_hide_example_crs:
     type: boolean_checkbox
-    weight: 25
+    weight: 26
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_flex_options:
     type: boolean_checkbox
-    weight: 24
+    weight: 25
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_global_opp:
     type: boolean_checkbox
-    weight: 26
+    weight: 27
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_deg_dtl_hide_why_choos_asu:
     type: boolean_checkbox
-    weight: 27
+    weight: 28
     region: content
     settings:
       display_label: true
