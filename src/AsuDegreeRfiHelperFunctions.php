@@ -53,21 +53,21 @@ class AsuDegreeRfiHelperFunctions {
       case "whyChooseAsu":
         // whyChooseAsu - top image
         $image = new \stdClass();
-        if (isset($paragraph->field_deg_dtl_why_card_image->target_id)) {
-          $wca_image = $paragraph->field_deg_dtl_why_card_image->entity;
-          $imageUri = $wca_image->getFileUri();
+        if (isset($paragraph->field_card_top_image->target_id)) {
+          $wca_image = $paragraph->field_card_top_image->entity;
+          $image->altText = $wca_image->field_media_image->alt;
+          $imageUri = $wca_image->field_media_image->entity->getFileUri();
           $image->url = \Drupal::service('file_url_generator')->generateAbsoluteString($imageUri);
-          $image->altText = $paragraph->field_deg_dtl_why_card_image->alt;
           $card->image = $image;
         }
         // Varying props names?
         $content = "text";
         $button = "button";
         break;
-      default:
+      default: // nextSteps
         $content = "content";
         $button = "buttonLink";
-        // nextSteps - top icon
+        //// nextSteps top icon
         if (isset($paragraph->field_degree_nxtsteps_card_icon) && $paragraph->field_degree_nxtsteps_card_icon->icon_name) {
           $icon_name = $paragraph->field_degree_nxtsteps_card_icon->icon_name;
           $icon_style = $paragraph->field_degree_nxtsteps_card_icon->style;
