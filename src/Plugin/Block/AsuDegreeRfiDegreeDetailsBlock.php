@@ -237,6 +237,11 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
     $whyChooseAsu = new \stdClass;
     $cards = [];
     $why_choose = 0;
+    //// hide whyChooseAsu?
+    if ($node->field_deg_dtl_hide_why_choos_asu->value) {
+      $whyChooseAsu->hide = (bool) $node->field_deg_dtl_hide_why_choos_asu->value;
+      $why_choose = 1;
+    }
     ////- Intro
     if (isset($node->field_deg_dtl_why_choose_intro->value) && !empty($node->field_deg_dtl_why_choose_intro->value)) {
       $whyChooseAsu->sectionIntroText = $node->field_deg_dtl_why_choose_intro->value;
@@ -274,13 +279,9 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       if (isset($cards[1])) { $labelled_cards->mentors = $cards[1]; }
       if (isset($cards[2])) { $labelled_cards->honors = $cards[2]; }
     }
-    //// hide whyChooseAsu?
-    if ($node->field_deg_dtl_hide_why_choos_asu->value) {
-      $whyChooseAsu->hide = (bool) $node->field_deg_dtl_hide_why_choos_asu->value;
-    }
 
-    if ($why_choose > 0) {
-      if ($why_choose > 1) { // Add properties + hide boolean
+    if ($why_choose > 0) { // Has intro text or hide setting, but no cards
+      if ($why_choose > 1) { // Also has cards
         $whyChooseAsu->cards = $labelled_cards;
       }
       $props['whyChooseAsu'] = $whyChooseAsu;

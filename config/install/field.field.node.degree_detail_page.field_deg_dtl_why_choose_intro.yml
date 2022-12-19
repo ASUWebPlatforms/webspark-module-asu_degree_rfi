@@ -21,7 +21,7 @@ required: false
 translatable: false
 default_value:
   -
-    value: "<p>This is the default info</p>\r\n"
+    value: ''
     format: full_html
 default_value_callback: ''
 settings: {  }
