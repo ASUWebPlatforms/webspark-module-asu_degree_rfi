@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.degree_detail_page.field_deg_dtl_anchor_online
     - field.field.node.degree_detail_page.field_deg_dtl_anchor_outlook
     - field.field.node.degree_detail_page.field_deg_dtl_anchor_pgm_contact
+    - field.field.node.degree_detail_page.field_deg_dtl_anchor_why_choose
     - field.field.node.degree_detail_page.field_deg_dtl_attend_online_img
     - field.field.node.degree_detail_page.field_deg_dtl_hide_affording
     - field.field.node.degree_detail_page.field_deg_dtl_hide_app_reqs
@@ -27,6 +28,9 @@ dependencies:
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_market
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_pgmdesc
     - field.field.node.degree_detail_page.field_deg_dtl_intro_hide_req_crs
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_1
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_2
+    - field.field.node.degree_detail_page.field_deg_dtl_why_choose_intro
     - field.field.node.degree_detail_page.field_degree_detail_acadplancode
     - field.field.node.degree_detail_page.field_degree_detail_breadcrumbs
     - field.field.node.degree_detail_page.field_degree_detail_email_link
@@ -57,16 +61,6 @@ targetEntityType: node
 bundle: degree_detail_page
 mode: teaser
 content:
-  field_deg_dtl_hide_why_choos_asu:
-    type: boolean
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    weight: 40
-    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -85,6 +79,7 @@ hidden:
   field_deg_dtl_anchor_online: true
   field_deg_dtl_anchor_outlook: true
   field_deg_dtl_anchor_pgm_contact: true
+  field_deg_dtl_anchor_why_choose: true
   field_deg_dtl_attend_online_img: true
   field_deg_dtl_hide_affording: true
   field_deg_dtl_hide_app_reqs: true
@@ -93,9 +88,13 @@ hidden:
   field_deg_dtl_hide_example_crs: true
   field_deg_dtl_hide_flex_options: true
   field_deg_dtl_hide_global_opp: true
+  field_deg_dtl_hide_why_choos_asu: true
   field_deg_dtl_intro_hide_market: true
   field_deg_dtl_intro_hide_pgmdesc: true
   field_deg_dtl_intro_hide_req_crs: true
+  field_deg_dtl_why_choose_1: true
+  field_deg_dtl_why_choose_2: true
+  field_deg_dtl_why_choose_intro: true
   field_degree_detail_acadplancode: true
   field_degree_detail_breadcrumbs: true
   field_degree_detail_email_link: true

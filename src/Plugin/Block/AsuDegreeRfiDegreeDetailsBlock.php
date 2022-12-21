@@ -319,17 +319,18 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
 
     //Anchor menu
     $anchor_menu_fields = [
-      'affordingCollege' => 'field_deg_dtl_anchor_afford_col',
-      'applicationRequirements' => 'field_deg_dtl_anchor_app_reqs',
       'atAGlance' => 'field_deg_dtl_anchor_glance',
-      'attendOnline' => 'field_deg_dtl_anchor_online',
-      'careerOutlook' => 'field_deg_dtl_anchor_outlook',
+      'applicationRequirements' => 'field_deg_dtl_anchor_app_reqs',
       'changeMajorRequirements' => 'field_deg_dtl_anchor_change_mjr',
-      'customizeYourCollegeExperience' => 'field_deg_dtl_anchor_customize',
-      'globalOpportunity' => 'field_deg_dtl_anchor_global_opp',
-      'exampleCareers' => 'field_deg_dtl_anchor_example_crs',
-      'programContactInfo' => 'field_deg_dtl_anchor_pgm_contact',
       'nextSteps' => 'field_deg_dtl_anchor_next_steps',
+      'affordingCollege' => 'field_deg_dtl_anchor_afford_col',
+      'careerOutlook' => 'field_deg_dtl_anchor_outlook',
+      'customizeYourCollegeExperience' => 'field_deg_dtl_anchor_customize',
+      'exampleCareers' => 'field_deg_dtl_anchor_example_crs',
+      'globalOpportunity' => 'field_deg_dtl_anchor_global_opp',
+      'mhyChooseAsu' => 'field_deg_dtl_anchor_why_choose',
+      'attendOnline' => 'field_deg_dtl_anchor_online',
+      'programContactInfo' => 'field_deg_dtl_anchor_pgm_contact',
     ];
     $anchorMenu  = new \stdClass;
     foreach ($anchor_menu_fields as $key => $field) {
@@ -354,7 +355,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
 
     $props['anchorMenu'] = $anchorMenu;
 
-    // other hiding fields
+    // Other "hide me" boolean fields
     $hide_fields = [
       'affordingCollege' => 'field_deg_dtl_hide_affording',
       'applicationRequirements' => 'field_deg_dtl_hide_app_reqs',
