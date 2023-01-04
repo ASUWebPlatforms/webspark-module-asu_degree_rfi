@@ -328,7 +328,7 @@ class AsuDegreeRfiDegreeDetailsBlock extends BlockBase {
       'customizeYourCollegeExperience' => 'field_deg_dtl_anchor_customize',
       'exampleCareers' => 'field_deg_dtl_anchor_example_crs',
       'globalOpportunity' => 'field_deg_dtl_anchor_global_opp',
-      'mhyChooseAsu' => 'field_deg_dtl_anchor_why_choose',
+      'whyChooseAsu' => 'field_deg_dtl_anchor_why_choose',
       'attendOnline' => 'field_deg_dtl_anchor_online',
       'programContactInfo' => 'field_deg_dtl_anchor_pgm_contact',
     ];
