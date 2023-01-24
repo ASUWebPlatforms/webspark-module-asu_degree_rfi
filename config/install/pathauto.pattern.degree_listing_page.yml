@@ -1,11 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - asu_degree_rfi
-  module:
-    - node
 id: degree_listing_page
 label: 'Degree listing page'
 type: 'canonical_entities:node'
