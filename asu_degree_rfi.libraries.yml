@@ -10,7 +10,7 @@ app-rfi:
   dependencies:
     - asu_degree_rfi/asu-degree-rfi-core
   js:
-    node_modules/@asu-design-system/app-rfi/dist/appRfi.umd.js: {}
+    node_modules/@asu/app-rfi/dist/appRfi.umd.js: {}
     js/asu_degree_rfi.rfi.js: {}
   css:
     component:
@@ -19,7 +19,7 @@ degree-page-core:
   dependencies:
     - asu_degree_rfi/asu-degree-rfi-core
   js:
-    node_modules/@asu-design-system/app-degree-pages/dist/degreePages.umd.js: { }
+    node_modules/@asu/app-degree-pages/dist/degreePages.umd.js: { }
 degree-listing-page:
   dependencies:
     - asu_degree_rfi/degree-page-core

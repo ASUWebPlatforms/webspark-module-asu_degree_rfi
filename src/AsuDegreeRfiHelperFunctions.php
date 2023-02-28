@@ -94,7 +94,7 @@ class AsuDegreeRfiHelperFunctions {
   public function getappPathFolder($component_name) {
     $module_handler = \Drupal::service('module_handler');
     $path_module = $module_handler->getModule('asu_degree_rfi')->getPath();
-    $appPathFolder = base_path() . $path_module . '/node_modules/@asu-design-system/' . $component_name . '/dist';
+    $appPathFolder = base_path() . $path_module . '/node_modules/@asu/' . $component_name . '/dist';
     return $appPathFolder;
   }
 
