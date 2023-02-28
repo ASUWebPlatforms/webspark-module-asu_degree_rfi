@@ -24,7 +24,6 @@ node_modules/@asu/app-degree-pages/dist/*
 !node_modules/@asu/app-degree-pages/dist/vendor.production.js
 !node_modules/@asu/app-degree-pages/dist/degreePages.umd.js
 !node_modules/@asu/app-degree-pages/dist/assets
-!node_modules/@asu/app-degree-pages/dist/assets/img/detail-page/attend-online.jpg
 node_modules/@asu/app-degree-pages/.npm/_logs/
 
 !node_modules/@asu-design-system/app-rfi
