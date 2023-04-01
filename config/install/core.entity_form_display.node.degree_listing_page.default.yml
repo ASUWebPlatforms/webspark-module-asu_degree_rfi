@@ -70,7 +70,6 @@ third_party_settings:
         id: ''
         description: ''
         required_fields: true
--_core:
 id: node.degree_listing_page.default
 targetEntityType: node
 bundle: degree_listing_page
@@ -113,12 +112,6 @@ content:
   field_degree_list_college_code:
     type: options_select
     weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_degree_list_default_view:
-    type: options_select
-    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -247,6 +240,11 @@ content:
     settings:
       display_label: true
     third_party_settings: {  }
+  simple_sitemap:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   status:
     type: boolean_checkbox
     weight: 6

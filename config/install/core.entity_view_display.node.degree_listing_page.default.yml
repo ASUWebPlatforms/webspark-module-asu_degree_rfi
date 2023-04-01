@@ -58,21 +58,6 @@ third_party_settings:
               context_mapping: {  }
             weight: 0
             additional: {  }
-          c276f340-e99e-418b-afd1-e6ec5a203a40:
-            uuid: c276f340-e99e-418b-afd1-e6ec5a203a40
-            region: content
-            configuration:
-              id: 'field_block:node:degree_listing_page:field_degree_degrees_per_page'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: list_default
-                label: above
-                settings: {  }
-                third_party_settings: {  }
-            weight: 1
-            additional: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
     allowed_block_categories: {  }
