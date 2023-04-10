@@ -43,9 +43,9 @@ class AsuDegreePagesCreation extends ControllerBase {
     $node_storage = \Drupal::service('entity_type.manager')->getStorage('node');
     $split_path = explode('/', $path);
 
-    if ($split_path[6] == null || $node_storage->loadByProperties(['nid' => $split_path[6], 'type' => 'degree_listing_page']) == null) {
-      $response = new Response(t('The Degree listing page with nid: @nid could not be found', ['@nid' => $split_path[6]]), 404);
-      return $response;
+    // Check if the Degree listing page exists.
+    if ($split_path[6] == NULL || $node_storage->loadByProperties(['nid' => $split_path[6], 'type' => 'degree_listing_page']) == NULL) {
+      return new Response(t('The Degree listing page with nid: @nid could not be found', ['@nid' => $split_path[6]]), 404);
     }
 
     if (preg_match($pattern_url, $path)) {
